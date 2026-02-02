@@ -24,7 +24,7 @@
             "browser": "src/main.ts",
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "assets": ["src/assets"],
+            "assets": ["src/assets", "src/404.html"],
             "styles": [
               "src/_styles/styles.scss"
             ]
