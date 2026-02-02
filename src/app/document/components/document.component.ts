@@ -237,6 +237,25 @@ export class DocumentComponent implements OnInit, AfterViewInit {
     return statusIconMap[status] || 'description';
   }
 
+  hasKiegeszitesAttachment(item: DocumentItemDetail): boolean {
+    return !!(item.attachments && item.attachments.length > 0 && 
+      item.attachments.some(att => att.name && typeof att.name === 'string' && att.name.toLowerCase().includes('kiegészítés')));
+  }
+
+  getKiegeszitesName(item: DocumentItemDetail): string {
+    const kiegeszites = item.attachments?.find(att => 
+      att.name && typeof att.name === 'string' && att.name.toLowerCase().includes('kiegészítés')
+    );
+    return kiegeszites?.name || '';
+  }
+
+  hasFormTypeAttachment(item: DocumentItemDetail): boolean {
+    return !!(item.attachments && item.attachments.length > 0 && 
+      item.attachments.some(att => 
+        att.name && typeof att.name === 'string' && !att.name.toLowerCase().includes('kiegészítés')
+      ));
+  }
+
   onReply() {
     window.alert('Új üzenet küldése az ügyhöz! (pl. e-papir)');
   }

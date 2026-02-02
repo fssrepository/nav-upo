@@ -195,7 +195,15 @@
         <mat-expansion-panel-header>
           <mat-panel-title>
             <mat-icon class="accordion-icon" [class]="'status-' + (item.status || '').toLowerCase().replace('ü', 'u').replace('á', 'a').replace('é', 'e').replace('ó', 'o')">{{ getStatusIcon(item.status || '') }}</mat-icon>
-            <span class="accordion-title-text">{{ item.iktatoszam }} · {{ item.formName }}</span>
+            <span class="accordion-title-text">
+              {{ item.iktatoszam }}
+              <ng-container *ngIf="hasKiegeszitesAttachment(item)">
+                · {{ getKiegeszitesName(item) }}
+              </ng-container>
+              <ng-container *ngIf="!hasKiegeszitesAttachment(item) && item.formName">
+                · {{ item.formName }}
+              </ng-container>
+            </span>
           </mat-panel-title>
           <mat-panel-description>{{ formatDate(item.datetime) }}</mat-panel-description>
         </mat-expansion-panel-header>
@@ -204,7 +212,7 @@
             <span>Státusz: {{ item.status }}</span>
             <span>Iktatószám: {{ item.iktatoszam }}</span>
             <span>KR Érkeztetési szám: {{ item.krSzam }}</span>
-            <span>Űrlap típus: {{ item.formName }}</span>
+            <span *ngIf="hasFormTypeAttachment(item) && item.formName">Űrlap típus: {{ item.formName }}</span>
           </div>
           <div class="attachments-frame">
             <div class="attachments-title">Csatolmányok</div>

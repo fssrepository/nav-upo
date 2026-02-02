@@ -524,6 +524,80 @@ export class DocumentService {
           ]
         }
       ]
+    },
+    {
+      icon: 'insert_drive_file',
+      status: 'Beküldve',
+      ugyfel: 'Kovács János',
+      formName: '2665',
+      datetime: '2025-08-15 14:20',
+      unread: true,
+      searchKey: 'kovács jános ikt-2025-001234 kr-445678 2665',
+      items: [
+        {
+          formName: '2665',
+          status: 'Beküldve',
+          datetime: '2025-08-15 14:20',
+          iktatoszam: 'IKT-2025-001234',
+          krSzam: 'KR-445678',
+          attachments: [
+            { name: '2665.pdf' }
+          ]
+        }
+      ]
+    },
+    {
+      icon: 'description',
+      status: 'Iktatva',
+      ugyfel: 'Nagy Péter',
+      formName: '2671',
+      datetime: '2025-09-10 09:30',
+      unread: false,
+      searchKey: 'nagy péter ikt-2025-001456 kr-446789 2671',
+      items: [
+        {
+          formName: '2671',
+          status: 'Iktatva',
+          datetime: '2025-09-10 09:30',
+          iktatoszam: 'IKT-2025-001456',
+          krSzam: 'KR-446789',
+          attachments: [
+            { name: '2671.pdf' },
+            { name: 'Kiegészítés 1.pdf' }
+          ]
+        }
+      ]
+    },
+    {
+      icon: 'insert_drive_file',
+      status: 'Hiba',
+      ugyfel: 'Molnár Gábor',
+      formName: '2678',
+      datetime: '2025-10-05 16:45',
+      unread: true,
+      searchKey: 'molnár gábor ikt-2025-001567 kr-447890 2678 ikt-2025-001568 kr-447891',
+      items: [
+        {
+          formName: '2678',
+          status: 'Beküldve',
+          datetime: '2025-10-05 16:45',
+          iktatoszam: 'IKT-2025-001567',
+          krSzam: 'KR-447890',
+          attachments: [
+            { name: '2678.pdf' }
+          ]
+        },
+        {
+          formName: '2678',
+          status: 'Hiba',
+          datetime: '2025-10-06 16:45',
+          iktatoszam: 'IKT-2025-001568',
+          krSzam: 'KR-447891',
+          attachments: [
+            { name: 'Kiegészítés 5.pdf' }
+          ]
+        }
+      ]
     }
   ];
 
