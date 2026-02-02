@@ -58,6 +58,12 @@ export class DocumentComponent implements OnInit, AfterViewInit {
   showFormPanel = false;
   selectedForms: string[] = [];
 
+  // Status dropdown controls
+  statusCtrl = new FormControl('');
+  filteredStatuses$!: Observable<string[]>;
+  showStatusPanel = false;
+  selectedStatuses: string[] = [];
+
   // Date range controls
   dateFromCtrl = new FormControl<Date | null>(null);
   dateToCtrl = new FormControl<Date | null>(null);
@@ -145,6 +151,11 @@ export class DocumentComponent implements OnInit, AfterViewInit {
       startWith(''),
       map(value => this._filterForm(value || ''))
     );
+
+    this.filteredStatuses$ = this.statusCtrl.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filterStatus(value || ''))
+    );
   }
 
   ngAfterViewInit(): void {
@@ -163,6 +174,13 @@ export class DocumentComponent implements OnInit, AfterViewInit {
     return this.documentService.getFormNames()
       .filter(option => option.toLowerCase().includes(filterValue))
       .filter(option => !this.selectedForms.includes(option));
+  }
+
+  private _filterStatus(value: string): string[] {
+    const filterValue = value.toLowerCase();
+    return this.documentService.getStatuses()
+      .filter(option => option.toLowerCase().includes(filterValue))
+      .filter(option => !this.selectedStatuses.includes(option));
   }
 
   selectSearchResult(doc: DocumentItem) {
@@ -350,6 +368,10 @@ export class DocumentComponent implements OnInit, AfterViewInit {
     if (this.showFormPanel && formWrapper && !formWrapper.contains(target)) {
       this.showFormPanel = false;
     }
+    const statusWrapper = document.querySelector('.status-wrapper');
+    if (this.showStatusPanel && statusWrapper && !statusWrapper.contains(target)) {
+      this.showStatusPanel = false;
+    }
   }
 
   toggleDatePanel() {
@@ -408,6 +430,31 @@ export class DocumentComponent implements OnInit, AfterViewInit {
     this.applyFilter();
   }
 
+  selectStatus(value: string) {
+    if (!value) return;
+    if (!this.selectedStatuses.includes(value)) {
+      this.selectedStatuses.push(value);
+    }
+    this.statusCtrl.setValue('');
+    this.applyFilter();
+  }
+
+  removeStatus(value: string) {
+    const i = this.selectedStatuses.indexOf(value);
+    if (i >= 0) this.selectedStatuses.splice(i, 1);
+    this.applyFilter();
+  }
+
+  toggleStatusPanel() {
+    this.showStatusPanel = !this.showStatusPanel;
+    if (this.showStatusPanel) {
+      setTimeout(() => {
+        const el = document.querySelector('.status-search input') as HTMLInputElement | null;
+        el?.focus();
+      }, 120);
+    }
+  }
+
   remove(chip: string) {
     if (chip === 'Ügyfél') return;
     const i = this.chips.indexOf(chip);
@@ -446,6 +493,12 @@ export class DocumentComponent implements OnInit, AfterViewInit {
           d.items && d.items.some(item => 
             item.formName && this.selectedForms.includes(item.formName)
           )
+        );
+      }
+
+      if (this.selectedStatuses.length > 0) {
+        filtered = filtered.filter(d => 
+          this.selectedStatuses.includes(d.status || '')
         );
       }
 

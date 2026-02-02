@@ -110,6 +110,31 @@
       </div>
     </div>
 
+    <div class="status-wrapper">
+      <button mat-stroked-button class="status-btn" (click)="toggleStatusPanel()" [attr.aria-expanded]="showStatusPanel">
+        <mat-icon *ngIf="selectedStatuses.length > 0" class="tick">check</mat-icon>
+        <span class="label">Státusz:&nbsp;{{ selectedStatuses.length === 0 ? '' : (selectedStatuses.length === 1 ? selectedStatuses[0] : selectedStatuses[0] + ' +' + (selectedStatuses.length - 1)) }}</span>
+        <mat-icon class="arrow" [class.open]="showStatusPanel">expand_more</mat-icon>
+      </button>
+
+      <div class="status-panel" [class.open]="showStatusPanel" *ngIf="showStatusPanel">
+        <mat-form-field class="status-search" appearance="outline">
+          <mat-chip-set aria-label="Selected statuses" class="chip-list">
+            <mat-chip *ngFor="let s of selectedStatuses" removable (removed)="removeStatus(s)">
+              {{ s }}
+              <button matChipRemove aria-label="Remove">✕</button>
+            </mat-chip>
+          </mat-chip-set>
+
+          <input matInput [formControl]="statusCtrl" [matAutocomplete]="sauto" placeholder="Státusz keresés">
+
+          <mat-autocomplete #sauto="matAutocomplete" (optionSelected)="selectStatus($event.option.value)">
+            <mat-option *ngFor="let option of filteredStatuses$ | async" [value]="option">{{ option }}</mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </div>
+    </div>
+
     <div class="unread-wrapper">
       <button mat-stroked-button class="unread-btn" (click)="toggleUnreadFilter()" [class.active]="showUnreadOnly">
         <mat-icon *ngIf="showUnreadOnly" class="tick">check</mat-icon>
