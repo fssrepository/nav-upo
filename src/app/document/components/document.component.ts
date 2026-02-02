@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-document',
+  standalone: true,
+  imports: [CommonModule],
   template: `
     <div class="documents">
-      <h2>Documents</h2>
+      <h2>Dokumentumok</h2>
       <p>This is the "Documents" page — your documents will appear here.</p>
     </div>
   `,
