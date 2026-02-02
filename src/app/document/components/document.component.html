@@ -1,10 +1,20 @@
 <div class="documents">
-  <mat-form-field class="search" appearance="outline">
-    <input matInput [formControl]="searchCtrl" [matAutocomplete]="auto" placeholder="Search ügyfél">
-    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="addChip($event.option.value)">
-      <mat-option *ngFor="let option of filteredOptions$ | async" [value]="option">{{ option }}</mat-option>
-    </mat-autocomplete>
-  </mat-form-field>
+  <div class="search-wrapper">
+    <mat-form-field class="search" appearance="outline">
+      <input matInput [formControl]="searchCtrl" placeholder="Search documents" (keydown.enter)="filterBySearch()">
+    </mat-form-field>
+
+    <div class="search-panel" [class.open]="showSearchPanel" *ngIf="showSearchPanel">
+      <div class="search-result" *ngFor="let result of searchResults" (click)="selectSearchResult(result)">
+        <div class="result-ugyfel">{{ result.ugyfel }}</div>
+        <div class="result-desc">{{ result.description }}</div>
+      </div>
+      <div class="search-footer">
+        <span class="footer-left">all search result for "{{ searchCtrl.value }}"</span>
+        <span class="footer-right">Press ENTER</span>
+      </div>
+    </div>
+  </div>
 
   <div class="filters">
     <div class="ugyfel-wrapper">

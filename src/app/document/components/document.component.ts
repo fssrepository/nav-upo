@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit, HostListener } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, HostListener, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -11,14 +11,8 @@ import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Observable, startWith, map } from 'rxjs';
-
-interface DocumentItem {
-  icon: string;
-  ugyfel: string;
-  description: string;
-  datetime: string;
-  unread?: boolean;
-}
+import { DocumentItem } from '../models/document-item.interface';
+import { DocumentService } from '../services/document.service';
 
 @Component({
   selector: 'app-document',
@@ -41,8 +35,12 @@ interface DocumentItem {
 
 })
 export class DocumentComponent implements OnInit, AfterViewInit {
+  private documentService = inject(DocumentService);
+
   searchCtrl = new FormControl('');
-  options: string[] = ['Acme', 'Globex', 'Wayne Enterprises', 'Umbrella Corp', 'Initech'];
+  searchResults: DocumentItem[] = [];
+  showSearchPanel = false;
+  options: string[] = ['Acme', 'Globex', 'Wayne Enterprises', 'Umbrella Corp', 'Initech', 'Stark Industries'];
   filteredOptions$!: Observable<string[]>;
 
   // Ugyfél dropdown controls
@@ -54,20 +52,7 @@ export class DocumentComponent implements OnInit, AfterViewInit {
   chips: string[] = [];
   selectedFilters: string[] = [];
 
-  documents: DocumentItem[] = [
-    { icon: 'description', ugyfel: 'Acme', description: 'Contract agreement', datetime: '2026-02-01 10:00', unread: true },
-    { icon: 'insert_drive_file', ugyfel: 'Globex', description: 'Invoice #1234', datetime: '2026-01-22 14:30', unread: false },
-    { icon: 'description', ugyfel: 'Wayne Enterprises', description: 'NDA document', datetime: '2025-12-10 09:15', unread: false },
-    { icon: 'insert_drive_file', ugyfel: 'Acme', description: 'Purchase order', datetime: '2026-02-02 11:05', unread: true },
-    { icon: 'description', ugyfel: 'Initech', description: 'Support ticket', datetime: '2026-02-01 16:20', unread: false },
-    { icon: 'description', ugyfel: 'Umbrella Corp', description: 'Safety report', datetime: '2025-11-03 08:30', unread: false },
-    { icon: 'insert_drive_file', ugyfel: 'Stark Industries', description: 'Tech spec', datetime: '2026-01-05 12:00', unread: true },
-    { icon: 'description', ugyfel: 'Wayne Enterprises', description: 'Board minutes', datetime: '2026-01-30 09:45', unread: false },
-    { icon: 'insert_drive_file', ugyfel: 'Acme', description: 'Invoice #4321', datetime: '2026-02-02 09:20', unread: true },
-    { icon: 'description', ugyfel: 'Globex', description: 'Contract addendum', datetime: '2026-01-15 15:00', unread: false },
-    { icon: 'insert_drive_file', ugyfel: 'Initech', description: 'Audit log', datetime: '2026-01-28 11:10', unread: false },
-    { icon: 'description', ugyfel: 'Wayne Enterprises', description: 'Legal memo', datetime: '2024-06-20 10:00', unread: false }
-  ];
+  documents: DocumentItem[] = [];
 
   dataSource = new MatTableDataSource<DocumentItem>(this.documents);
   displayedColumns: string[] = ['icon', 'ugyfel', 'description', 'datetime'];
@@ -77,20 +62,32 @@ export class DocumentComponent implements OnInit, AfterViewInit {
   @ViewChild('paginator') paginator!: MatPaginator;
 
   ngOnInit(): void {
-    this.filteredOptions$ = this.searchCtrl.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filter(value || ''))
-    );
+    // Load documents from service
+    this.documentService.getDocuments().subscribe(docs => {
+      this.documents = docs;
+      this.sortDocuments();
+      this.dataSource.data = this.documents;
+    });
+
+    // Setup search bar to show results panel based on searchKey
+    this.searchCtrl.valueChanges.pipe(
+      startWith('')
+    ).subscribe(value => {
+      const query = (value || '').trim();
+      if (query.length > 0) {
+        this.searchResults = this.documentService.searchDocuments(query);
+        this.showSearchPanel = this.searchResults.length > 0;
+      } else {
+        this.searchResults = [];
+        this.showSearchPanel = false;
+      }
+    });
 
     // setup ügyfél autocomplete filtered stream (exclude already selected)
     this.filteredUgyfels$ = this.ugyfelCtrl.valueChanges.pipe(
       startWith(''),
       map(value => this._filterUgyfel(value || ''))
     );
-
-    // ensure initial sort (date desc) and set data for the table
-    this.sortDocuments();
-    this.dataSource.data = this.documents;
   }
 
   ngAfterViewInit(): void {
@@ -107,6 +104,35 @@ export class DocumentComponent implements OnInit, AfterViewInit {
     return this.options
       .filter(option => option.toLowerCase().includes(filterValue))
       .filter(option => !this.selectedFilters.includes(option));
+  }
+
+  selectSearchResult(doc: DocumentItem) {
+    // Close search panel and optionally navigate or highlight the selected document
+    this.showSearchPanel = false;
+    this.searchCtrl.setValue('', { emitEvent: false });
+    // You could emit an event or navigate here
+  }
+
+  filterBySearch() {
+    const query = (this.searchCtrl.value || '').trim().toLowerCase();
+    if (!query) return;
+
+    // Close search panel
+    this.showSearchPanel = false;
+
+    // Filter table by search query (matches searchKey)
+    this.loading = true;
+    setTimeout(() => {
+      const filtered = this.documents.filter(doc => doc.searchKey.includes(query));
+      const sorted = filtered.sort((a, b) => {
+        const da = this.parseDateTime(a.datetime);
+        const db = this.parseDateTime(b.datetime);
+        return db.getTime() - da.getTime();
+      });
+      this.dataSource.data = sorted;
+      if (this.paginator) this.paginator.firstPage();
+      this.loading = false;
+    }, 300);
   }
 
   addChip(value: string) {
