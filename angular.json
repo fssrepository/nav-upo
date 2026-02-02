@@ -36,6 +36,7 @@
           },
           "configurations": {
             "production": {
+              "outputPath": "docs",
               "budgets": [
                 {
                   "type": "initial",
@@ -51,6 +52,7 @@
               "outputHashing": "all"
             },
             "development": {
+              "outputPath": "docs",
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true
