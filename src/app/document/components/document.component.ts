@@ -55,11 +55,13 @@ export class DocumentComponent implements OnInit, AfterViewInit, OnDestroy {
   private resizeHandler?: () => void;
   private pullStartY = 0;
   private pullDistanceInternal = 0;
+  private pullEligible = false;
   private pullTouchMoveHandler?: (event: TouchEvent) => void;
   private pullTouchStartHandler?: (event: TouchEvent) => void;
   private pullTouchEndHandler?: () => void;
   private readonly pullThreshold = 64;
   private readonly pullMax = 120;
+  private readonly pullStartThreshold = 8;
 
   isMobileView = window.innerWidth <= 768;
   mobileLoadingMore = false;
@@ -783,17 +785,32 @@ export class DocumentComponent implements OnInit, AfterViewInit, OnDestroy {
     const container = this.tableContainer.nativeElement;
     this.pullTouchStartHandler = (event: TouchEvent) => {
       if (!this.isMobileView || this.loading || this.mobileLoadingMore || this.pullRefreshing) return;
-      if (container.scrollTop > 0) return;
-      this.pullActive = true;
+      this.pullEligible = container.scrollTop === 0;
       this.pullStartY = event.touches[0]?.clientY ?? 0;
       this.pullDistanceInternal = 0;
       this.cdr.markForCheck();
     };
 
     this.pullTouchMoveHandler = (event: TouchEvent) => {
-      if (!this.pullActive) return;
+      if (!this.pullEligible || this.pullRefreshing) return;
+      if (container.scrollTop > 0) {
+        this.resetPullState();
+        return;
+      }
       const currentY = event.touches[0]?.clientY ?? 0;
-      const delta = Math.max(0, currentY - this.pullStartY);
+      const delta = currentY - this.pullStartY;
+      if (delta <= 0) {
+        if (this.pullActive) {
+          this.resetPullState();
+        }
+        return;
+      }
+
+      if (!this.pullActive && delta < this.pullStartThreshold) {
+        return;
+      }
+
+      this.pullActive = true;
       this.pullDistanceInternal = Math.min(this.pullMax, delta);
       if (this.pullDistanceInternal > 0) {
         event.preventDefault();
@@ -802,15 +819,18 @@ export class DocumentComponent implements OnInit, AfterViewInit, OnDestroy {
     };
 
     this.pullTouchEndHandler = () => {
-      if (!this.pullActive) return;
-      this.pullActive = false;
+      if (!this.pullActive) {
+        this.pullEligible = false;
+        return;
+      }
       if (this.pullDistanceInternal >= this.pullThreshold) {
         this.pullRefreshing = true;
         this.cdr.markForCheck();
         this.refresh();
-        return;
+      } else {
+        this.resetPullState();
       }
-      this.resetPullState();
+      this.pullEligible = false;
       this.cdr.markForCheck();
     };
 
@@ -841,6 +861,7 @@ export class DocumentComponent implements OnInit, AfterViewInit, OnDestroy {
   private resetPullState() {
     this.pullActive = false;
     this.pullDistanceInternal = 0;
+    this.pullEligible = false;
   }
 
   private updateTableData(filtered: DocumentItem[]) {
@@ -893,7 +914,7 @@ export class DocumentComponent implements OnInit, AfterViewInit, OnDestroy {
           this.loadMoreMobileItems();
         }
       },
-      { root, rootMargin: '0px 0px 80px 0px', threshold: 0.1 }
+      { root, rootMargin: '0px 0px 200px 0px', threshold: 0.01 }
     );
 
     this.intersectionObserver.observe(this.tableScrollSentinel.nativeElement);
@@ -937,6 +958,7 @@ export class DocumentComponent implements OnInit, AfterViewInit, OnDestroy {
         this.mobileVisibleCount = nextCount;
         this.dataSource.data = this.mobileFilteredDocuments.slice(0, this.mobileVisibleCount);
         this.mobileLoadingMore = false;
+        this.refreshMobileObserver();
         this.cdr.markForCheck();
       });
     }, 1200);

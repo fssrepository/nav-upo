@@ -469,7 +469,13 @@ tr[mat-row], tr.mat-mdc-row, tr.mdc-data-table__row { cursor: pointer; }
 /* Table overlay for loading spinner */
 .table-container { position: relative; }
 .table-overlay { position: absolute; inset: 0; display:flex; align-items:center; justify-content:center; background: rgba(255,255,255,0.6); z-index: 10; }
-.table-stack { position: relative; }
+.table-stack {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+}
 .pull-indicator {
   position: absolute;
   top: 4px;
@@ -489,6 +495,7 @@ tr[mat-row], tr.mat-mdc-row, tr.mdc-data-table__row { cursor: pointer; }
   justify-content: center;
   padding: 6px 0 16px;
   min-height: 32px;
+  position: static;
 }
 .table-sentinel { height: 24px; width: 100%; }
 
@@ -561,7 +568,7 @@ td.mat-column-icon .mat-icon {
     flex-direction: column;
     height: 100dvh;
     overflow-x: hidden;
-    overflow-y: auto;
+    overflow-y: hidden;
     padding: 0;
   }
 
@@ -612,8 +619,9 @@ td.mat-column-icon .mat-icon {
     width: 100%;
     position: relative;
     z-index: 0;
-    padding: 0 0.5rem;
     padding-bottom: 24px;
+    min-height: 0;
+    height: 100%;
   }
 
   .ugyfel-panel,
