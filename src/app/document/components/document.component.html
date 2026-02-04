@@ -166,7 +166,7 @@
       </mat-progress-spinner>
     </div>
     <div class="table-container" #tableContainer>
-      <div class="table-overlay" *ngIf="loading && !isMobileView">
+      <div class="table-overlay" *ngIf="loading">
         <mat-progress-spinner diameter="48" mode="indeterminate"></mat-progress-spinner>
       </div>
       <table mat-table [dataSource]="dataSource" class="mat-elevation-z1">

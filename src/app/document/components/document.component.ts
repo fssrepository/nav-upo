@@ -62,6 +62,7 @@ export class DocumentComponent implements OnInit, AfterViewInit, OnDestroy {
   private readonly pullThreshold = 64;
   private readonly pullMax = 120;
   private readonly pullStartThreshold = 8;
+  private filterUpdateTimer: number | null = null;
 
   isMobileView = window.innerWidth <= 768;
   mobileLoadingMore = false;
@@ -198,6 +199,10 @@ export class DocumentComponent implements OnInit, AfterViewInit, OnDestroy {
     this.teardownMobileIntersectionObserver();
     this.teardownResizeListener();
     this.teardownPullToRefresh();
+    if (this.filterUpdateTimer !== null) {
+      window.clearTimeout(this.filterUpdateTimer);
+      this.filterUpdateTimer = null;
+    }
   }
 
   private _filterUgyfel(value: string): string[] {
@@ -664,6 +669,10 @@ export class DocumentComponent implements OnInit, AfterViewInit, OnDestroy {
     // Simulate a short loading delay and refresh the table view
     this.loading = true;
     this.mobileLoadingMore = false;
+    if (this.filterUpdateTimer !== null) {
+      window.clearTimeout(this.filterUpdateTimer);
+    }
+    this.cdr.markForCheck();
 
     const update = () => {
       const sorted = this.documents.slice().sort((a, b) => {
@@ -720,10 +729,11 @@ export class DocumentComponent implements OnInit, AfterViewInit, OnDestroy {
       this.updateTableData(filtered);
       this.refreshMobileObserver();
       this.loading = false;
+      this.filterUpdateTimer = null;
       this.cdr.markForCheck();
     };
     // Debounce / simulate server delay
-    setTimeout(update, 400);
+    this.filterUpdateTimer = window.setTimeout(update, 400);
   }
 
   private setupResizeListener() {
@@ -1010,4 +1020,3 @@ export class DocumentComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
 }
-
