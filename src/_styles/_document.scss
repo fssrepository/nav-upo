@@ -5,7 +5,15 @@
 
 /* Search wrapper and Gmail-style search results panel */
 .search-row { display: flex; align-items: center; gap: 0.5rem; min-height: 48px; }
-.search-wrapper { position: relative; min-width: 220px; max-width: 600px; width: 100%; flex: 1; display: flex; align-items: center; }
+.search-wrapper {
+  position: relative;
+  min-width: 0;
+  max-width: 600px;
+  width: 100%;
+  flex: 1 1 0;
+  display: flex;
+  align-items: center;
+}
 .search { width: 100%; }
 
 @media (max-width: 768px) {
@@ -828,4 +836,3 @@ mat-panel-description {
   display: flex;
   gap: 0.5rem;
 }
-
