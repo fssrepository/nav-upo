@@ -114,6 +114,7 @@ export class DocumentComponent implements OnInit, AfterViewInit, OnDestroy {
   loading = false;
   selectedItem: DocumentItem | null = null;
   expandedItemIds: Set<string> = new Set();
+  showCreateMenu = false;
 
   @ViewChild('paginator') paginator!: MatPaginator;
   @ViewChild('tableScrollSentinel') tableScrollSentinel!: ElementRef<HTMLElement>;
@@ -265,6 +266,7 @@ export class DocumentComponent implements OnInit, AfterViewInit, OnDestroy {
   closeDetailView() {
     this.selectedItem = null;
     this.expandedItemIds.clear();
+    this.showCreateMenu = false;
     setTimeout(() => {
       this.updatePaginatorMode();
       if (!this.isMobileView && this.paginator) {
@@ -292,11 +294,22 @@ export class DocumentComponent implements OnInit, AfterViewInit, OnDestroy {
       'Beküldve': 'send',
       'Iktatva': 'folder',
       'Tájékoztató': 'info',
+      'Elfogadásra vár': 'hourglass_top',
       'Hiba': 'error',
       'Lezárva': 'check_circle'
     };
     return statusIconMap[status] || 'description';
   }
+
+  getStatusClass(status?: string | null): string {
+    if (!status) return '';
+    return String(status)
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/\s+/g, '-');
+  }
+
 
   hasKiegeszitesAttachment(item: DocumentItemDetail): boolean {
     return !!(item.attachments && item.attachments.length > 0 && 
@@ -321,12 +334,23 @@ export class DocumentComponent implements OnInit, AfterViewInit, OnDestroy {
     window.alert('Új üzenet küldése az ügyhöz! (pl. e-papir)');
   }
 
-  onManualClose() {
-    window.alert('Manuális Lezárás');
+  toggleCreateMenu() {
+    this.showCreateMenu = !this.showCreateMenu;
   }
 
+  createLetter() {
+    this.showCreateMenu = false;
+    window.alert('Új levél létrehozása (pl. e-papir)');
+  }
+
+  createDocument() {
+    this.showCreateMenu = false;
+    window.alert('Új Dokumentum Létrehozása (pl. onya)');
+  }
+
+
   onViewAttachment() {
-    window.alert('Dokumentum megnyitasa Onya-ban (pl. javitasra)!');
+    window.alert('Dokumentum megnyitasa Onya-ban (pl. javitasra, jovahagyasra)!');
   }
 
   onDownloadAttachment() {

@@ -173,7 +173,7 @@
 
       <ng-container matColumnDef="icon">
         <td mat-cell *matCellDef="let element">
-          <mat-icon aria-hidden="true" [class]="'status-icon status-' + (element.status || '').toLowerCase().replace('ü', 'u').replace('á', 'a').replace('é', 'e').replace('ó', 'o')">{{getStatusIcon(element.status || '')}}</mat-icon>
+          <mat-icon aria-hidden="true" [class]="'status-icon status-' + getStatusClass(element.status)">{{getStatusIcon(element.status || '')}}</mat-icon>
         </td>
       </ng-container>
 
@@ -182,7 +182,6 @@
           <div class="name-primary">{{ element.name }}</div>
           <div class="mobile-meta">
             <span class="mobile-status">{{ element.status }}</span>
-            <span class="mobile-sep">·</span>
             <span class="mobile-form">{{ element.formName }}</span>
           </div>
         </td>
@@ -216,40 +215,46 @@
     <button mat-icon-button (click)="closeDetailView()" aria-label="Back">
       <mat-icon>arrow_back</mat-icon>
     </button>
-    <button mat-stroked-button class="new-letter-btn" (click)="onReply()">
-      Új levél
-    </button>
   </div>
 
   <div class="detail-panel">
     <div class="detail-top">
       <div class="detail-name-status">
         <span class="detail-ugyfel">{{ selectedItem.name }}</span>
-        <button mat-icon-button 
-          class="status-icon-button" 
-          [class]="'status-' + (selectedItem.status || '').toLowerCase().replace('ü', 'u').replace('á', 'a').replace('é', 'e').replace('ó', 'o')"
-          (click)="onManualClose()">
+        <span
+          class="status-icon-button"
+          [class]="'status-' + getStatusClass(selectedItem.status)">
           <mat-icon>{{ getStatusIcon(selectedItem.status || '') }}</mat-icon>
-        </button>
+        </span>
       </div>
       <div class="detail-meta">
         <span>{{ generateUgyszam(selectedItem) }}</span>
       </div>
     </div>
+    <div class="detail-fab">
+      <div class="fab-actions" *ngIf="showCreateMenu">
+        <button mat-stroked-button class="fab-action" (click)="createLetter()">
+          <span>Új Levél</span>
+          <mat-icon>mail</mat-icon>
+        </button>
+        <button mat-stroked-button class="fab-action" (click)="createDocument()">
+          <span>Új Dokumentum</span>
+          <mat-icon>description</mat-icon>
+        </button>
+      </div>
+      <button mat-fab color="primary" class="fab-trigger" [class.open]="showCreateMenu" aria-label="Új létrehozása" (click)="toggleCreateMenu()">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
 
-    <mat-accordion>
-      <mat-expansion-panel *ngFor="let item of selectedItem.items; let i = index" [expanded]="expandedItemIds.has('item-' + i)" (opened)="toggleAccordion('item-' + i)" (closed)="toggleAccordion('item-' + i)">
+    <div class="detail-accordion">
+      <mat-accordion>
+        <mat-expansion-panel *ngFor="let item of selectedItem.items; let i = index" [expanded]="expandedItemIds.has('item-' + i)" (opened)="toggleAccordion('item-' + i)" (closed)="toggleAccordion('item-' + i)">
         <mat-expansion-panel-header>
           <mat-panel-title>
-            <mat-icon class="accordion-icon" [class]="'status-' + (item.status || '').toLowerCase().replace('ü', 'u').replace('á', 'a').replace('é', 'e').replace('ó', 'o')">{{ getStatusIcon(item.status || '') }}</mat-icon>
+            <mat-icon class="accordion-icon" [class]="'status-' + getStatusClass(item.status)">{{ getStatusIcon(item.status || '') }}</mat-icon>
             <span class="accordion-title-text">
-              {{ item.iktatoszam }}
-              <ng-container *ngIf="hasKiegeszitesAttachment(item)">
-                · {{ getKiegeszitesName(item) }}
-              </ng-container>
-              <ng-container *ngIf="!hasKiegeszitesAttachment(item) && item.formName">
-                · {{ item.formName }}
-              </ng-container>
+              {{ (item.iktatoszam || '').split(' - ')[0] }}
             </span>
           </mat-panel-title>
           <mat-panel-description>{{ formatDate(item.datetime) }}</mat-panel-description>
@@ -266,13 +271,18 @@
             <div class="attachment-row" *ngFor="let att of item.attachments">
               <div class="attachment-name">{{ att.name }}</div>
               <div class="attachment-actions">
-                <button mat-stroked-button color="primary" (click)="onViewAttachment()">View</button>
-                <button mat-stroked-button (click)="onDownloadAttachment()">Download</button>
+                <button mat-icon-button color="primary" aria-label="View attachment" (click)="onViewAttachment()">
+                  <mat-icon>visibility</mat-icon>
+                </button>
+                <button mat-icon-button aria-label="Download attachment" (click)="onDownloadAttachment()">
+                  <mat-icon>download</mat-icon>
+                </button>
               </div>
             </div>
           </div>
         </div>
-      </mat-expansion-panel>
-    </mat-accordion>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
   </div>
 </div>
