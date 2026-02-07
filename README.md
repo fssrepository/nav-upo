@@ -1,4 +1,4 @@
-# NAV Üpo
+# NAV
 
 A legtöbb közigazgatási projekt – például a NAV Ügyfélportál – esetében az egyik legnagyobb probléma, hogy a teljes, integrált környezetet (felhasználói felület, adatbázis, szerverinfrastruktúra stb.) zárt körülmények között fejlesztik 1–1,5 éven keresztül. A rendszer ezt követően már nehezen és jelentős költséggel módosítható, amennyiben a felhasználók elégedetlenek a végeredménnyel.
 

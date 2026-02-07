@@ -28,7 +28,7 @@
     <div class="mobile-menu-backdrop" [class.open]="showMobileMenu" (click)="closeMobileMenu()" *ngIf="showMobileMenu"></div>
     <div class="mobile-menu-panel-global" [class.open]="showMobileMenu">
       <div class="menu-header">
-        <img src="assets/img/NAV_UPO_logo_RGB_fit.svg" alt="NAV ÜPO" />
+        <img src="assets/img/nav-logo.svg" alt="NAV" />
       </div>
       <div class="menu-items">
         <a class="menu-item" routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="closeMobileMenu()">
@@ -61,7 +61,7 @@
 
     <nav class="sidebar" aria-label="Primary navigation">
       <div class="sidebar-top" aria-hidden="true">
-        <img src="assets/img/NAV_UPO_logo_RGB_fit.svg" alt="" />
+        <img src="assets/img/nav-logo.svg" alt="" />
       </div>
       <mat-nav-list>
         <a mat-list-item routerLink="/home" routerLinkActive="selected" [routerLinkActiveOptions]="{ exact: true }">
