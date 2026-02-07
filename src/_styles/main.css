@@ -293,7 +293,7 @@ main {
   
   /* Add top padding to all other pages */
   .content-area:not(:has(.documents)) {
-    padding-top: 3.5rem;
+    padding-top: 3rem;
     box-sizing: border-box;
   }
   

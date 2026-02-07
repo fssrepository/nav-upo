@@ -4,7 +4,7 @@
 .right-controls { display:flex; align-items:center; }
 
 /* Search wrapper and Gmail-style search results panel */
-.search-row { display: flex; align-items: center; gap: 0.5rem; min-height: 48px; }
+.search-row { display: flex; align-items: center; gap: 0.5rem; min-height: 48px; padding: 0.5rem 0 0 0;}
 .search-wrapper {
   position: relative;
   min-width: 0;
