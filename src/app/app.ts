@@ -13,7 +13,7 @@ import { MENU_BADGES, MENU_BADGES_TOTAL } from './shared/menu-badges';
   styleUrl: '../_styles/app.scss'
 })
 export class App {
-  protected readonly title = signal('nav-upo');
+  protected readonly title = signal('e-kozig');
   protected readonly menuBadges = MENU_BADGES;
   protected readonly menuBadgeTotal = MENU_BADGES_TOTAL;
   protected showMobileMenu = false;

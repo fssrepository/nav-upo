@@ -6,7 +6,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "nav-upo": {
+    "e-kozig": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -59,10 +59,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "nav-upo:build:production"
+              "buildTarget": "e-kozig:build:production"
             },
             "development": {
-              "buildTarget": "nav-upo:build:development"
+              "buildTarget": "e-kozig:build:development"
             }
           },
           "defaultConfiguration": "development"
