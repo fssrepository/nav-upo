@@ -70,6 +70,8 @@ Adónaptár (esedekes bevallasok/hianyzo bevallasok)
 upo menu
 --------
 
+lehet az uzenetek menu nem kell
+
 lehet jobb lenne desktopon is a 3 vizszintes vonalu menu gomb, es maga a statikus menu eltavolitasa
 
 balance gombra rakkattintva megjelenik egy sub menu lista vissza gombbal - ugy mint a youtube-ban
