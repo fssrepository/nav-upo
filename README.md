@@ -6,4 +6,4 @@ Ha a [felületi prototípus](https://fssrepository.github.io/e-kozig/) már a fe
 
 A GitHub integrált környezetet biztosít a közös munkához: [forráskód](https://github.com/fssrepository/e-kozig/) és [vitafórum](https://github.com/fssrepository/e-kozig/issues). Így a külső szakmai szervezetek (például a könyvelői kamara) bevonása garantálja a hatékony közös karbantartást és a magasabb minőséget.
 
-![Folyamatábra](src/assets/img/process.png)
+<center><img src="src/assets/img/process.png" alt="Folyamatábra"></center>
