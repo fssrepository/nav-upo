@@ -1272,6 +1272,14 @@ mat-panel-description {
   gap: 0.25rem;
 }
 
+.attachment-actions .mat-icon {
+  color: rgba(0, 0, 0, 0.87);
+}
+
+.attachment-actions .mat-icon.pending-action {
+  color: darkorange;
+}
+
 @media (max-width: 768px) {
   .attachment-row {
     flex-wrap: wrap;

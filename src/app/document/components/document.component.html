@@ -560,8 +560,10 @@
             <div class="attachment-row" *ngFor="let att of item.attachments">
               <div class="attachment-name">{{ att.name }}</div>
               <div class="attachment-actions">
-                <button mat-icon-button color="primary" aria-label="Review attachment" (click)="openFormPopupFromItem(item)">
-                  <mat-icon>grading</mat-icon>
+                <button mat-icon-button aria-label="Review attachment" (click)="openFormPopupFromItem(item)">
+                  <mat-icon [class.pending-action]="item.status === 'Elfogadásra vár'">
+                    {{ item.status === 'Elfogadásra vár' ? 'grading' : 'visibility' }}
+                  </mat-icon>
                 </button>
                 <button mat-icon-button aria-label="Download attachment" (click)="onDownloadAttachment()">
                   <mat-icon>download</mat-icon>
