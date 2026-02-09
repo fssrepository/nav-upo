@@ -75,6 +75,8 @@ Adónaptár (esedekes bevallasok/hianyzo bevallasok)
 user selector - balra nyilo menu:
 --------------------------------
 
+szervezet kivalaszto - mutassa meg hogy frissul a menu es a kezdolap
+
 Segitseg 8181 - menu
 
 Szervezet kivalaszto alatta
