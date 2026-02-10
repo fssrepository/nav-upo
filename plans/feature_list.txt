@@ -4,6 +4,8 @@ user selector menubar
 
 minden menu mellett egy piros szam, ugy mint az upo menuben
 
+belépés nélkül csak a kezdőlap jelenik meg - vhova leirni
+
 1) when clicking user button (top right corner) similar like NAV side menu bar appears just sliding to the right side of the screen
 the icon of the user button (without shadow) + kilepes (exit symbol) button next to it
 
