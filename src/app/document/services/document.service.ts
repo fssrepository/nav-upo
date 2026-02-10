@@ -619,8 +619,16 @@ export class DocumentService {
 
   searchDocuments(query: string): DocumentItem[] {
     if (!query || !query.trim()) return [];
-    const q = query.toLowerCase().trim();
-    return this.documents.filter(doc => doc.searchKey.includes(q)).slice(0, 8);
+    const normalize = (value: string) =>
+      value
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^a-z0-9]/g, '');
+    const q = normalize(query.trim());
+    return this.documents
+      .filter(doc => normalize(doc.searchKey).includes(q))
+      .slice(0, 8);
   }
 
 }

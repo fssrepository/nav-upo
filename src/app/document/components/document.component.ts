@@ -234,7 +234,7 @@ export class DocumentComponent implements OnInit, AfterViewInit, OnDestroy {
         // Latest item is first (items are sorted descending)
         const latestItem = items[0];
         
-        return {
+        const processed = {
           ...doc,
           id: `doc-${index}`,
           name: doc.ugyfel,
@@ -243,18 +243,28 @@ export class DocumentComponent implements OnInit, AfterViewInit, OnDestroy {
           datetime: latestItem?.datetime || doc.datetime,
           items
         };
+        const ugy = this.generateUgyszam(processed);
+        const key = (processed.searchKey || '').toLowerCase();
+        if (ugy && !key.includes(ugy.toLowerCase())) {
+          processed.searchKey = `${processed.searchKey} ${ugy} ${ugy.replace('-', ' ')}`.trim();
+        }
+        return processed;
       });
       this.sortDocuments();
       this.applyFilter();
     });
 
-    // Setup search bar to show results panel based on searchKey
+    // Setup search bar to show results panel based on searchKey + ügy szám
     this.searchCtrl.valueChanges.pipe(
       startWith('')
     ).subscribe(value => {
       const query = (value || '').trim();
       if (query.length > 0) {
-        this.searchResults = this.documentService.searchDocuments(query);
+        const q = this.normalizeSearch(query);
+        this.searchResults = this.documents.filter(doc => {
+          const haystack = this.normalizeSearch(`${doc.searchKey || ''} ${this.generateUgyszam(doc)}`);
+          return haystack.includes(q);
+        });
         this.showSearchPanel = this.searchResults.length > 0;
       } else {
         this.searchResults = [];
@@ -899,9 +909,10 @@ export class DocumentComponent implements OnInit, AfterViewInit, OnDestroy {
 
       // Apply search terms with AND logic
       if (this.searchTerms.length > 0) {
-        filtered = filtered.filter(d => 
-          this.searchTerms.every(term => d.searchKey.includes(term.toLowerCase()))
-        );
+        filtered = filtered.filter(d => {
+          const haystack = this.normalizeSearch(`${d.searchKey || ''} ${this.generateUgyszam(d)}`);
+          return this.searchTerms.every(term => haystack.includes(this.normalizeSearch(term)));
+        });
       }
 
       if (this.selectedFilters.length > 0) {
@@ -1269,6 +1280,14 @@ export class DocumentComponent implements OnInit, AfterViewInit, OnDestroy {
     }
     const dt = new Date(s);
     return dt;
+  }
+
+  private normalizeSearch(value: string): string {
+    return value
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^a-z0-9]/g, '');
   }
 
   private getCurrentSearchText(): string {
