@@ -448,6 +448,7 @@ export class InvoicesComponent implements OnInit, AfterViewInit, OnDestroy {
     if (i >= 0) {
       this.selectedUgyfels.splice(i, 1);
       this.applyFilter();
+      this.ugyfelCtrl.setValue(this.ugyfelCtrl.value || '');
     }
   }
 
@@ -464,6 +465,7 @@ export class InvoicesComponent implements OnInit, AfterViewInit, OnDestroy {
     if (i >= 0) {
       this.selectedStatuses.splice(i, 1);
       this.applyFilter();
+      this.statusCtrl.setValue(this.statusCtrl.value || '');
     }
   }
 
@@ -480,6 +482,7 @@ export class InvoicesComponent implements OnInit, AfterViewInit, OnDestroy {
     if (i >= 0) {
       this.selectedDirections.splice(i, 1);
       this.applyFilter();
+      this.directionCtrl.setValue(this.directionCtrl.value || '');
     }
   }
 
@@ -496,6 +499,7 @@ export class InvoicesComponent implements OnInit, AfterViewInit, OnDestroy {
     if (i >= 0) {
       this.selectedTypes.splice(i, 1);
       this.applyFilter();
+      this.typeCtrl.setValue(this.typeCtrl.value || '');
     }
   }
 
@@ -681,6 +685,7 @@ export class InvoicesComponent implements OnInit, AfterViewInit, OnDestroy {
     if (i >= 0) {
       this.selectedPeriodUgyfels.splice(i, 1);
       this.applyPeriodFilter();
+      this.periodUgyfelCtrl.setValue(this.periodUgyfelCtrl.value || '');
     }
   }
 
@@ -697,6 +702,7 @@ export class InvoicesComponent implements OnInit, AfterViewInit, OnDestroy {
     if (i >= 0) {
       this.selectedPeriodStatuses.splice(i, 1);
       this.applyPeriodFilter();
+      this.periodStatusCtrl.setValue(this.periodStatusCtrl.value || '');
     }
   }
 
