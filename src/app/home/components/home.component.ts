@@ -7,6 +7,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { KezdolapMenuService, MenuNode, MenuSubmenu } from '../services/kezdolap-menu.service';
+import { IssueSelectionService } from '../../shared/issue-selection.service';
 
 @Component({
   selector: 'app-home',
@@ -26,6 +27,7 @@ import { KezdolapMenuService, MenuNode, MenuSubmenu } from '../services/kezdolap
 })
 export class HomeComponent {
   private menuService = inject(KezdolapMenuService);
+  private issueSelection = inject(IssueSelectionService);
 
   searchCtrl = new FormControl('');
   searchTerms: string[] = [];
@@ -37,6 +39,8 @@ export class HomeComponent {
   showDetailedSearch = false;
   showPopup = false;
   popupTitle = '';
+
+  selectedIssue = this.issueSelection.selectedIssue;
 
   addSearchTerm(): void {
     const value = (this.searchCtrl.value || '').trim();

@@ -77,6 +77,13 @@
     </section>
   </div>
 
+  <section class="issue-highlight" *ngIf="selectedIssue() as issue">
+    <div class="issue-highlight-card">
+      <h3>Kezdőlap kiemelt tartalom</h3>
+      <p>{{ issue }}</p>
+    </div>
+  </section>
+
   <section class="readme-content">
     <h2>E-Közig prototípus (Itt a nav.gov.hu főoldal van!)</h2>
     <p>

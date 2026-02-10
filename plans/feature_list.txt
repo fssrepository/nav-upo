@@ -1,25 +1,58 @@
+1) Felhasználók accordion also should have the red counter (same behavior as Idopontfoglalas - number of items)
+2) hower on the recycle bit button the icon is not in the middle of the grey circle (highlighted)
+3) user selector menu bar header should be sticky, but the other menu items should be in the scrollable panel like body - so if there is not enough space, can scroll 
+
+
+1) as the Ügyek, the "Időpontfoglalás" also user specific (pls. change the items, and the counter of the accordion accrodingly)
+2) Időpontfoglalás accordion and Ügyek should be closed as default, either one of them needs to be open only
+3) pls. look at the attached image, you haven't done anything, the accrodion inside has no scrollbar and the + button should be moved a little bit left as it has not enough place on the screen
+
+1) for each row of "Ügyek" right hand side put the red counter, some of them might not have
+2) suming up that num values of the counters the number should be shown left to the Ügyek title as a red counter
+3) the plus button on the "Felhasznalók" is misplaced, it should be more on the left, as the screen is cutting off
+4) all the accordions are not scrollable inside (cutting off items' name at the bottom, some of them are not reachable because of that)
+5) when you choose a different felhasználó, then the ügyek counters should be updated (they are user specific)
+
+
+1) "Időpontfoglalás" accordion, the number of items should be placed in the title of accordion as red counter, but the items itself should not get any red counter at all
+"Időpontfoglalás" accordion should be scrollable and when open, close needs some animation
+2) "Felhasznalók", "Ügyek" accordion should be scrollable, with nice animation when open, close
+remove left hand counter from each row inside accordin of "Felhasznalók"
+3) in the case of "Ügyek", remove description from each row (second column), just the name of the "Ügyek" should be there
+
+
+1) remove "Akadályoztatás" menu
+2) "Felhasználók", "Időpontfoglalás", "Ügyek" should be the same accordion style (no autocomplementer)
+3) pls. remove the left description and put red counter of ugyek - suming up the ügyek accrodion panel should match with the number
+4) "Felhasználók", "Időpontfoglalás" counter should get the item number inside the accordion
+5) "Felhasználók" is a little bit wide, the screen is cutting of the "+" part and the accrodion is not scrollable
+6) in the "Felhasználók" panel, in each row the icons are not center aligned in their span area (highlighted circle shows when hover)
+
+1) when clicking on "Időpontfoglalás", then it should not popup, it should be an accordion panel, and the content inside should be scrollable
+">" arrow should be removed
+2) the "Felhasznalók" menü should be the same style as the "Időpontfoglalás"
+3) "Központi segítség", "Beállítások" should be vertically centered, and the red counter should be removed
+4) "Akadályoztatás" should be an angular icon like "!" inside the "Felhasználók" accrodion in each row (right hand), clicking on that "Akadályoztatás" popup appears
+5) next to the "!" mark should get a recycle bin icon also - show popup with the content of "Valóban törölni akarja?" - look at the popup with "Törlés" button, should be like that
+6) in the "Felhasznalók" accordion top right corner pls. place the "+" button, instead of containing in the accordion inside
+
 user selector menubar
 --------------------------------
-minden menu mellett egy piros szam, ugy mint az upo menuben
+0) every menu item should have some red number left side which should sum up, and shown on the user selector button for the current user
+users list in the menu bar has different number, choosing one, the időpontfoglalás, ügyek items, Akadályoztatás should have counter which sums up and will be shown on the user selector button  
 
-belépés nélkül csak a kezdőlap jelenik meg - vhova leirni
-
-1) when clicking user button (top right corner) similar like NAV side menu bar appears just sliding to the right side of the screen
-the icon of the user button (without shadow) + kilepes (exit symbol) button next to it
-
-Felhasználók menü
-felhasználók kiveve a kivalasztottat - rakkattintva - az selectalodik ki - es megy a menu tetejere, az eddigi felhasznalo meg jon ide
-felhasznaló hozzáadása gomb -> popup content with KAÜ
-
-Központi segítség menü - popup
-Akadályoztatás (Egészségügyi Krízishelyzet Moratórium - betegseg, baleset, gondnok stb. - ne zavard az illetot - menu piros szinu, ha be van jelentve, torolni is ugyanitt lehet) - suspend menu on user selector
-A felhasznaló nem tudja ellátni a feladatait
-
-Időpontfoglalás menü ">" a menu savban, mivel alatta mar foglalt idopontok jelennek meg a menuben, amire ra lehet kattintani, popup with content of szervezet, dátum, terkep link
-popup panel with content of Szervezet kiválasztása + dátum választó + video chat vagy hely (pl.: google map)
-Adóügy-re, Kormányablak-ra, Önkormányzat-ra, Bűnügy-re, Egészségügy-re, Munkaügy-re, Jog-ra, Szolgáltatások-ra (tehát mindenre, ami állami)
-
-lazy load modules, mindegyiknek van "Kezdőlap" menuje, és egy speciális ikonja
+1) when clicking user button (top right corner) a menu bar appears similar to left side just sliding to the right side of the screen
+the icon of the user button (without shadow) + user name + kilepes (exit symbol) button next to it is the similar size of the header of the menu bar than the NAV one (both vertically center aligned)
+2) pls. add "Felhasználók" menü - it should be some sort of frame style:
+a) list of name of users, but not the active one shown above the user selector menu
+b) if you choose a different one the name going up the menu bar, and the current one is going to this section
+c) "+" button left bottom corener of the section hiding partly the last row of the user - while clicking on it similar style/size of popup like "Beállitások" appears (with title Felhasználó hozzáadása and with content KAÜ (Ügyfélkapu+ bejelentkezés)
+3) pls. add "Időpontfoglalás" menü with ">" right hand side - it should be also some sort of frame - generate some rows as the following
+a) put clickable items inside the frame with content of place name, address in two lines if it's needed, and in next line datetime (choose format)
+b) clicking on the "Időpontfoglalás", showing a popup like "Beállitások" with content "place name, address, datum, google link, video chat" + in new line "Adóügy, Kormányablak, Önkormányzat, Bűnügy, Egészségügy, Munkaügy, Jog, Szolgáltatások", clicking on one of the item shows the "Időpontfoglalás" with the content of the details of the menu item + generate a map link for mobile and for desktop (in desktop you open a new tab and activate that) + in new line "Lemondás/áthelyezés"
+4) pls. add "Ügyek" menü
+a) lazy load modules, each of them has "Kezdőlap" menü (and special icon - at the moment put just the NAV one for everywhere)
+b) ügyek has an autocompleter with the content of first row, when you click one of them, the Kezdőlap page will show the second row as a content
 Ügyek menü (szamok mellette - ami a felhasznalo ikonon van - masik felhasznalo van kivalasztva, frissulnek a szamok)
 Adóügy
 - NAV (már megvan)
@@ -37,7 +70,12 @@ Jog
 Szolgáltatások
 - kozuzemi szamlak, bkv berletek, autópálya matrica, parkolas
 
-kiválaszt gomb - ha kivalasztjuk az ügyet, a bal oldali menu, ikon frissuljon
-
-Beállítások menu
-- nyelv választás stb.
+5) pls. add "Központi segítség" menü - clicking on that similar popup then "Beállitások" with content "1818" just the title of the menu item
+6) pls. add "Akadályoztatás" menü - clicking on that similar popup then "Beállitások"
+with title "Felhasználó Felfüggesztése"
+with content:
+"Egészségügyi Krízishelyzet Moratórium - betegseg, baleset, gondnok stb.
+A felhasznaló nem tudja ellátni a feladatait.
+"Felfüggeszt, Felfüggesztés törlése, adott dátumok között!"
+7) pls. add "Beállítások" menu for user selector menu bar also, clicking on it similar popup like "Beállitások" of left menu bar with content 
+"nyelv választás stb."
