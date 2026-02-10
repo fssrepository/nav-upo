@@ -347,11 +347,6 @@ tr[mat-row], tr.mat-mdc-row, tr.mdc-data-table__row { cursor: pointer; }
 .mobile-bizonylat {
   white-space: nowrap;
 }
-
-.mobile-status {
-  display: block;
-  width: 100%;
-}
 .mobile-meta {
   display: none;
   font-size: 12px;
@@ -384,8 +379,7 @@ tr[mat-row], tr.mat-mdc-row, tr.mdc-data-table__row { cursor: pointer; }
   }
 
   .mobile-meta {
-    display: inline-flex;
-    flex-wrap: wrap;
+    display: block;
   }
 
   .mobile-bizonylat {
@@ -1005,6 +999,44 @@ td.mat-column-icon {
 .invoices .mobile-form::before {
   content: '';
   margin: 0;
+}
+
+.invoices .mobile-meta {
+  display: inline-flex;
+  flex-wrap: wrap;
+}
+
+.invoices .mobile-bizonylat {
+  display: block;
+  width: 100%;
+}
+
+.invoices .mobile-status {
+  display: inline-flex;
+  width: auto;
+}
+
+.invoices .mobile-form {
+  display: inline-flex;
+  font-weight: 700;
+}
+
+.invoices .mobile-status::after {
+  content: '';
+}
+
+.invoices .mobile-form::after {
+  content: '-';
+  color: rgba(0,0,0,0.45);
+  margin: 0 4px;
+}
+
+.invoices .mobile-form {
+  order: 1;
+}
+
+.invoices .mobile-status {
+  order: 2;
 }
 
 .invoice-create-layout {

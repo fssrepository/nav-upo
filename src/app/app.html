@@ -43,7 +43,7 @@
         </a>
         <a class="menu-item" routerLink="/documents/szamlak" routerLinkActive="active" (click)="closeMobileMenu()">
           <mat-icon>receipt_long</mat-icon>
-          <span>Számlák</span>
+          <span>Bizonylatok</span>
           <span class="item-badge" *ngIf="menuBadges.invoices > 0">{{ menuBadges.invoices }}</span>
         </a>
         <a class="menu-item" routerLink="/offices" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="closeMobileMenu()">
@@ -80,8 +80,8 @@
           <span class="menu-badge" *ngIf="menuBadges.documents > 0">{{ menuBadges.documents }}</span>
         </a>
         <a mat-list-item routerLink="/documents/szamlak" routerLinkActive="selected">
-          <mat-icon aria-hidden="false" aria-label="Számlák">receipt_long</mat-icon>
-          <span>Számlák</span>
+          <mat-icon aria-hidden="false" aria-label="Bizonylatok">receipt_long</mat-icon>
+          <span>Bizonylatok</span>
           <span class="menu-badge" *ngIf="menuBadges.invoices > 0">{{ menuBadges.invoices }}</span>
         </a>
         <a mat-list-item routerLink="/offices" routerLinkActive="selected" [routerLinkActiveOptions]="{ exact: true }">
