@@ -20,7 +20,7 @@
 
     <!-- User Selector Button - Global -->
     <button mat-icon-button class="user-selector-btn-global" (click)="onUserSelect()" aria-label="Felhasználó választása">
-      <span class="user-initial">{{ activeUser.initials }}</span>
+      <span class="user-initial" [class]="getUserColorClass(activeUser.id)">{{ activeUser.initials }}</span>
       <span class="badge-dot" *ngIf="userBadgeCount > 0">{{ userBadgeCount }}</span>
     </button>
 
@@ -72,7 +72,7 @@
     <aside class="user-menu-panel" [class.open]="showUserMenu">
       <div class="user-menu-header">
         <div class="user-header-left">
-          <span class="user-avatar">{{ activeUser.initials }}</span>
+          <span class="user-avatar" [class]="getUserColorClass(activeUser.id)">{{ activeUser.initials }}</span>
           <div class="user-meta">
             <span class="user-name">{{ activeUser.name }}</span>
             <span class="user-role">Aktív felhasználó</span>
@@ -104,7 +104,10 @@
                 (click)="selectUser(user.id)"
                 [class.user-row-clicked]="clickedUserId === user.id"
               >
-                <span class="user-row-name">{{ user.name }}</span>
+                <span class="user-row-name">
+                  <span class="user-row-initial" [class]="getUserColorClass(user.id)">{{ user.initials }}</span>
+                  {{ user.name }}
+                </span>
                 <span class="user-row-actions">
                   <button
                     type="button"

@@ -65,7 +65,6 @@
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  background: #1976d2;
   color: #fff;
   font-weight: 700;
   font-size: 13px;
@@ -449,6 +448,36 @@
   width: 100%;
   box-sizing: border-box;
   transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease, border-color 0.12s ease;
+}
+
+.user-row-name {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.user-row-initial {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  color: #fff;
+  font-weight: 700;
+  font-size: 11px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.user-color-1 {
+  background: #1976d2;
+}
+
+.user-color-2 {
+  background: #ef6c00;
+}
+
+.user-color-3 {
+  background: #2e7d32;
 }
 
 .user-row:hover {

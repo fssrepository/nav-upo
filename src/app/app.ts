@@ -336,6 +336,11 @@ export class App {
     'Jog': 'jog-logo.svg',
     'Szolgáltatások': 'szolgaltatasok-logo.svg'
   };
+  protected readonly userColorClassMap: Record<string, string> = {
+    'user-1': 'user-color-1',
+    'user-2': 'user-color-2',
+    'user-3': 'user-color-3'
+  };
 
   constructor() {
     this.userBadgeCount = this.getUserMenuTotal();
@@ -555,6 +560,10 @@ export class App {
   getIssueLogo() {
     const file = this.issueLogoMap[this.selectedIssueLabel] ?? 'adougy-logo.svg';
     return `assets/img/${file}`;
+  }
+
+  getUserColorClass(userId: string) {
+    return this.userColorClassMap[userId] ?? 'user-color-1';
   }
 
   private updateMenuBadgesForIssue(issue: IssueLabel) {
