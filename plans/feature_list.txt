@@ -12,7 +12,7 @@ felhasználók kiveve a kivalasztottat - rakkattintva - az selectalodik ki - es 
 felhasznaló hozzáadása gomb -> popup content with KAÜ
 
 Központi segítség menü - popup
-Akadályoztatás bejelentése (Egészségügyi Krízishelyzet Moratórium - betegseg, baleset, gondnok stb. - ne zavard az illetot) - suspend menu on user selector
+Akadályoztatás (Egészségügyi Krízishelyzet Moratórium - betegseg, baleset, gondnok stb. - ne zavard az illetot - menu piros szinu, ha be van jelentve, torolni is ugyanitt lehet) - suspend menu on user selector
 A felhasznaló nem tudja ellátni a feladatait
 
 Időpontfoglalás menü ">" a menu savban, mivel alatta mar foglalt idopontok jelennek meg a menuben, amire ra lehet kattintani, popup with content of szervezet, dátum, terkep link
