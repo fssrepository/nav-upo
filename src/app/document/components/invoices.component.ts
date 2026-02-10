@@ -740,6 +740,12 @@ export class InvoicesComponent implements OnInit, AfterViewInit, OnDestroy {
       });
     }
 
+    filtered = filtered.sort((a, b) => {
+      const da = this.parseDate(a.periodTo).getTime();
+      const db = this.parseDate(b.periodTo).getTime();
+      return db - da;
+    });
+
     this.periodDataSource.data = filtered;
   }
 
