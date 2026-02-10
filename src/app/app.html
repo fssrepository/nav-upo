@@ -71,127 +71,144 @@
     <div class="user-menu-backdrop" [class.open]="showUserMenu" (click)="closeUserMenu()" *ngIf="showUserMenu"></div>
     <aside class="user-menu-panel" [class.open]="showUserMenu">
       <div class="user-menu-header">
-        <div class="user-header-left">
-          <span class="user-avatar" [class]="getUserColorClass(activeUser.id)">{{ activeUser.initials }}</span>
+        <button
+          class="user-header-left user-header-link"
+          type="button"
+          (click)="openUserMenuView('users')"
+          [class.user-header-link-active]="userMenuView === 'users'"
+        >
+          <span class="user-avatar-wrapper">
+            <span class="user-avatar" [class]="getUserColorClass(activeUser.id)">{{ activeUser.initials }}</span>
+            <span class="badge-dot user-avatar-badge" *ngIf="userBadgeCount > 0">{{ userBadgeCount }}</span>
+          </span>
           <div class="user-meta">
             <span class="user-name">{{ activeUser.name }}</span>
             <span class="user-role">Aktív felhasználó</span>
           </div>
-          <button class="user-exit-btn" type="button" aria-label="Kilépés">
-            <mat-icon>logout</mat-icon>
-            <span>Kilépés</span>
-          </button>
-        </div>
+        </button>
+        <button class="user-exit-btn" type="button" aria-label="Kilépés" (click)="openUserPopup('logoutConfirm')">
+          <mat-icon>logout</mat-icon>
+          <span>Kilépés</span>
+        </button>
       </div>
 
       <div class="user-menu-content">
-        <section class="user-menu-card accordion-card" [class.collapsed]="!usersOpen">
-          <div class="card-header card-header-action" role="button" tabindex="0" (click)="toggleUserSection('users')">
-            <span class="card-header-left">
-              <span class="card-badge">{{ otherUsers.length }}</span>
-              <span class="card-title">Felhasználók</span>
-            </span>
-            <button class="header-icon-btn" type="button" (click)="$event.stopPropagation(); openUserPopup('addUser')">
-              <mat-icon>add</mat-icon>
-            </button>
-          </div>
-          <div class="card-body user-list-body accordion-body" [class.open]="usersOpen">
-            <div class="accordion-inner">
-              <button
-                class="user-row"
-                type="button"
-                *ngFor="let user of otherUsers"
-                (click)="selectUser(user.id)"
-                [class.user-row-clicked]="clickedUserId === user.id"
-              >
-                <span class="user-row-name">
-                  <span class="user-row-initial" [class]="getUserColorClass(user.id)">{{ user.initials }}</span>
-                  {{ user.name }}
-                </span>
-                <span class="user-row-actions">
-                  <button
-                    type="button"
-                    class="row-icon-btn"
-                    (click)="$event.stopPropagation(); openUserPopup('suspension', user)"
-                    aria-label="Akadályoztatás"
-                  >
-                    <mat-icon>priority_high</mat-icon>
-                  </button>
-                  <button
-                    type="button"
-                    class="row-icon-btn"
-                    (click)="$event.stopPropagation(); openUserPopup('deleteUser', user)"
-                    aria-label="Törlés"
-                  >
-                    <mat-icon>delete</mat-icon>
-                  </button>
-                  <span class="user-row-badge">{{ getUserMenuTotalFor(user) }}</span>
-                </span>
-              </button>
+        <div *ngIf="userMenuView === 'root'">
+          <section class="user-menu-card accordion-card" [class.collapsed]="!appointmentsOpen">
+            <div class="card-header card-header-action" role="button" tabindex="0" (click)="toggleUserSection('appointments')">
+              <span class="card-header-left">
+                <span class="card-badge">{{ userAppointments.length }}</span>
+                <span class="card-title">Időpontfoglalás</span>
+              </span>
             </div>
-          </div>
-        </section>
-
-        <section class="user-menu-card accordion-card" [class.collapsed]="!appointmentsOpen">
-          <div class="card-header card-header-action" role="button" tabindex="0" (click)="toggleUserSection('appointments')">
-            <span class="card-header-left">
-              <span class="card-badge">{{ userAppointments.length }}</span>
-              <span class="card-title">Időpontfoglalás</span>
-            </span>
-          </div>
-          <div class="card-body appointment-list accordion-body" [class.open]="appointmentsOpen">
-            <div class="accordion-inner">
-              <button
-                class="appointment-row"
-                type="button"
-                *ngFor="let appointment of userAppointments"
-                (click)="selectAppointment(appointment.id); openUserPopup('appointment')"
-              >
-                <div class="appointment-main">
-                  <span class="appointment-place">{{ appointment.place }}</span>
-                  <span class="appointment-address">{{ appointment.address }}</span>
-                </div>
-                <span class="appointment-date">{{ appointment.datetime }}</span>
-              </button>
-            </div>
-          </div>
-        </section>
-
-        <section class="user-menu-card accordion-card" [class.collapsed]="!issuesOpen">
-          <div class="card-header card-header-action" role="button" tabindex="0" (click)="toggleIssueSection()">
-            <span class="card-header-left">
-              <span class="card-badge">{{ getIssueTotal() }}</span>
-              <span class="card-title">Ügyek</span>
-            </span>
-          </div>
-          <div class="card-body accordion-body" [class.open]="issuesOpen">
-            <div class="accordion-inner">
-              <div class="issue-list">
+            <div class="card-body appointment-list accordion-body" [class.open]="appointmentsOpen">
+              <div class="accordion-inner">
                 <button
-                  class="issue-row"
+                  class="appointment-row"
                   type="button"
-                  *ngFor="let issue of issueGroups"
-                  (click)="selectIssue(issue.label)"
-                  [class.issue-row-active]="selectedIssueLabel === issue.label"
-                  [class]="getIssueRowClass(issue.label)"
+                  *ngFor="let appointment of userAppointments"
+                  (click)="selectAppointment(appointment.id); openUserPopup('appointment')"
                 >
-                  <span class="issue-name">{{ issue.label }}</span>
-                  <span class="issue-count" *ngIf="getIssueCount(issue.label) > 0">{{ getIssueCount(issue.label) }}</span>
+                  <div class="appointment-main">
+                    <span class="appointment-place">{{ appointment.place }}</span>
+                    <span class="appointment-address">{{ appointment.address }}</span>
+                  </div>
+                  <span class="appointment-date">{{ appointment.datetime }}</span>
                 </button>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
 
-        <button class="user-menu-link" type="button" (click)="openUserPopup('centralHelp')">
-          <mat-icon>support_agent</mat-icon>
-          <span>Központi segítség</span>
-        </button>
+          <section class="user-menu-card accordion-card" [class.collapsed]="!issuesOpen">
+            <div class="card-header card-header-action" role="button" tabindex="0" (click)="toggleIssueSection()">
+              <span class="card-header-left">
+                <span class="card-badge">{{ getIssueTotal() }}</span>
+                <span class="card-title">Ügyek</span>
+              </span>
+            </div>
+            <div class="card-body accordion-body" [class.open]="issuesOpen">
+              <div class="accordion-inner">
+                <div class="issue-list">
+                  <button
+                    class="issue-row"
+                    type="button"
+                    *ngFor="let issue of issueGroups"
+                    (click)="selectIssue(issue.label)"
+                    [class.issue-row-active]="selectedIssueLabel === issue.label"
+                    [class]="getIssueRowClass(issue.label)"
+                  >
+                    <span class="issue-name">{{ issue.label }}</span>
+                    <span class="issue-count" *ngIf="getIssueCount(issue.label) > 0">{{ getIssueCount(issue.label) }}</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </section>
 
-        <button class="user-menu-link" type="button" (click)="openUserPopup('userSettings')">
-          <mat-icon>settings</mat-icon>
-          <span>Beállítások</span>
-        </button>
+          <button class="user-menu-link" type="button" (click)="openUserPopup('centralHelp')">
+            <mat-icon>support_agent</mat-icon>
+            <span>Központi segítség</span>
+          </button>
+
+          <button class="user-menu-link" type="button" (click)="openUserPopup('userSettings')">
+            <mat-icon>settings</mat-icon>
+            <span>Beállítások</span>
+          </button>
+        </div>
+
+        <div *ngIf="userMenuView === 'users'">
+          <button class="user-menu-subheader" type="button" (click)="openUserMenuView('root')" aria-label="Vissza">
+            <mat-icon>arrow_back</mat-icon>
+            <span class="subheader-title">Felhasználóváltás</span>
+          </button>
+
+          <section class="user-menu-card accordion-card" [class.collapsed]="!usersOpen">
+            <div class="card-header card-header-action" role="button" tabindex="0" (click)="toggleUserSection('users')">
+              <span class="card-header-left">
+                <span class="card-badge">{{ otherUsers.length }}</span>
+                <span class="card-title">Felhasználó</span>
+              </span>
+              <button class="header-icon-btn" type="button" (click)="$event.stopPropagation(); openUserPopup('addUser')">
+                <mat-icon>add</mat-icon>
+              </button>
+            </div>
+            <div class="card-body user-list-body accordion-body" [class.open]="usersOpen">
+              <div class="accordion-inner">
+                <button
+                  class="user-row"
+                  type="button"
+                  *ngFor="let user of otherUsers"
+                  (click)="selectUser(user.id)"
+                  [class.user-row-clicked]="clickedUserId === user.id"
+                >
+                  <span class="user-row-name">
+                    <span class="user-row-initial" [class]="getUserColorClass(user.id)">{{ user.initials }}</span>
+                    {{ user.name }}
+                  </span>
+                  <span class="user-row-actions">
+                    <button
+                      type="button"
+                      class="row-icon-btn"
+                      (click)="$event.stopPropagation(); openUserPopup('suspension', user)"
+                      aria-label="Akadályoztatás"
+                    >
+                      <mat-icon>priority_high</mat-icon>
+                    </button>
+                    <button
+                      type="button"
+                      class="row-icon-btn"
+                      (click)="$event.stopPropagation(); openUserPopup('deleteUser', user)"
+                      aria-label="Törlés"
+                    >
+                      <mat-icon>delete</mat-icon>
+                    </button>
+                    <span class="user-row-badge">{{ getUserMenuTotalFor(user) }}</span>
+                  </span>
+                </button>
+              </div>
+            </div>
+          </section>
+        </div>
       </div>
     </aside>
 
@@ -241,7 +258,7 @@
   </div>
 </main>
 
-<section class="app-popup" *ngIf="activePopup && activePopup !== 'deleteUser'">
+<section class="app-popup" *ngIf="activePopup && activePopup !== 'deleteUser' && activePopup !== 'logoutConfirm'">
   <div class="app-popup-backdrop" (click)="closePopup()"></div>
   <div class="app-popup-panel" (click)="$event.stopPropagation()">
     <div class="popup-header">
@@ -349,6 +366,18 @@
     <div class="user-delete-confirm-actions">
       <button mat-stroked-button type="button" (click)="closePopup()">Mégsem</button>
       <button mat-raised-button color="warn" class="delete-btn" type="button" (click)="closePopup()">Törlés</button>
+    </div>
+  </div>
+</section>
+
+<section class="logout-confirm" *ngIf="activePopup === 'logoutConfirm'">
+  <div class="logout-confirm-backdrop" (click)="closePopup()"></div>
+  <div class="logout-confirm-panel" (click)="$event.stopPropagation()">
+    <h3>Biztosan kilép?</h3>
+    <p>{{ activeUser.name }}</p>
+    <div class="logout-confirm-actions">
+      <button mat-stroked-button type="button" (click)="closePopup()">Mégsem</button>
+      <button mat-raised-button color="warn" class="logout-btn" type="button" (click)="closePopup()">Kilépés</button>
     </div>
   </div>
 </section>

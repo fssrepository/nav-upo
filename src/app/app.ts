@@ -1,6 +1,6 @@
 import { Component, HostListener, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
+import { RouterOutlet, RouterLink, RouterLinkActive, Router } from '@angular/router';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -57,6 +57,7 @@ interface UserEntry {
 export class App {
   public readonly alertService = inject(AlertService);
   private readonly issueSelection = inject(IssueSelectionService);
+  private readonly router = inject(Router);
 
   protected getItemText(item: string | { text: string }) {
     return typeof item === 'string' ? item : item.text;
@@ -69,7 +70,7 @@ export class App {
     return item.level ?? 0;
   }
 
-  protected activePopup: 'settings' | 'contact' | 'balance' | 'appointment' | 'centralHelp' | 'suspension' | 'userSettings' | 'addUser' | 'deleteUser' | null = null;
+  protected activePopup: 'settings' | 'contact' | 'balance' | 'appointment' | 'centralHelp' | 'suspension' | 'userSettings' | 'addUser' | 'deleteUser' | 'logoutConfirm' | null = null;
   protected readonly title = signal('e-kozig');
   protected menuBadges = { home: 0, documents: 0, invoices: 0 };
   protected menuBadgeTotal = 0;
@@ -326,6 +327,7 @@ export class App {
   protected appointmentsOpen = false;
   protected issuesOpen = false;
   protected selectedIssueLabel: IssueLabel = 'Adóügy';
+  protected userMenuView: 'root' | 'users' = 'root';
   protected readonly issueLogoMap: Record<IssueLabel, string> = {
     'Adóügy': 'adougy-logo.svg',
     'Kormányablak': 'kormanyablak-logo.svg',
@@ -360,7 +362,7 @@ export class App {
     this.showMobileMenu = false;
   }
 
-  openUserPopup(type: 'appointment' | 'centralHelp' | 'suspension' | 'userSettings' | 'addUser' | 'deleteUser', user?: UserEntry) {
+  openUserPopup(type: 'appointment' | 'centralHelp' | 'suspension' | 'userSettings' | 'addUser' | 'deleteUser' | 'logoutConfirm', user?: UserEntry) {
     if (type === 'deleteUser' || type === 'suspension') {
       this.pendingDeleteUser = user ?? null;
     }
@@ -393,6 +395,8 @@ export class App {
         return 'Felhasználó hozzáadása';
       case 'deleteUser':
         return 'Törlés';
+      case 'logoutConfirm':
+        return 'Kilépés';
       default:
         return '';
     }
@@ -408,6 +412,14 @@ export class App {
 
   closeUserMenu() {
     this.showUserMenu = false;
+    this.userMenuView = 'root';
+  }
+
+  openUserMenuView(view: 'root' | 'users') {
+    this.userMenuView = view;
+    if (view === 'users') {
+      this.usersOpen = true;
+    }
   }
 
   toggleUserSection(section: 'users' | 'appointments') {
@@ -420,6 +432,7 @@ export class App {
       this.issuesOpen = false;
     }
   }
+
 
   toggleIssueSection() {
     this.issuesOpen = !this.issuesOpen;
@@ -528,6 +541,7 @@ export class App {
     const detail = this.getIssueDetail(issue);
     this.issueSelection.setIssue(issue, detail);
     this.updateMenuBadgesForIssue(issue);
+    this.router.navigate(['/home']);
   }
 
   getIssueDetail(issue: IssueLabel) {
