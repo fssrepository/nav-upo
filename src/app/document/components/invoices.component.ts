@@ -364,7 +364,7 @@ export class InvoicesComponent implements OnInit, AfterViewInit, OnDestroy {
       return;
     }
     this.closeFilterPanels('ugyfel');
-    this.scrollFiltersToButton('invoice', '.ugyfel-btn', () => {
+    this.scrollFiltersToButton('invoice', '.ugyfel-btn', '.ugyfel-panel', () => {
       this.showUgyfelPanel = true;
       setTimeout(() => this.positionPanelWithin(this.invoiceFiltersRef?.nativeElement, '.ugyfel-btn', '.ugyfel-panel'), 20);
     }, '.ugyfeld-search input');
@@ -380,7 +380,7 @@ export class InvoicesComponent implements OnInit, AfterViewInit, OnDestroy {
       return;
     }
     this.closeFilterPanels('date');
-    this.scrollFiltersToButton('invoice', '.date-btn', () => {
+    this.scrollFiltersToButton('invoice', '.date-btn', '.date-panel', () => {
       this.showDatePanel = true;
       setTimeout(() => this.positionPanelWithin(this.invoiceFiltersRef?.nativeElement, '.date-btn', '.date-panel'), 20);
     });
@@ -396,7 +396,7 @@ export class InvoicesComponent implements OnInit, AfterViewInit, OnDestroy {
       return;
     }
     this.closeFilterPanels('status');
-    this.scrollFiltersToButton('invoice', '.status-btn', () => {
+    this.scrollFiltersToButton('invoice', '.status-btn', '.status-panel', () => {
       this.showStatusPanel = true;
       setTimeout(() => this.positionPanelWithin(this.invoiceFiltersRef?.nativeElement, '.status-btn', '.status-panel'), 20);
     }, '.status-search input');
@@ -412,7 +412,7 @@ export class InvoicesComponent implements OnInit, AfterViewInit, OnDestroy {
       return;
     }
     this.closeFilterPanels('direction');
-    this.scrollFiltersToButton('invoice', '.direction-btn', () => {
+    this.scrollFiltersToButton('invoice', '.direction-btn', '.direction-panel', () => {
       this.showDirectionPanel = true;
       setTimeout(() => this.positionPanelWithin(this.invoiceFiltersRef?.nativeElement, '.direction-btn', '.direction-panel'), 20);
     }, '.direction-search input');
@@ -428,7 +428,7 @@ export class InvoicesComponent implements OnInit, AfterViewInit, OnDestroy {
       return;
     }
     this.closeFilterPanels('type');
-    this.scrollFiltersToButton('invoice', '.type-btn', () => {
+    this.scrollFiltersToButton('invoice', '.type-btn', '.type-panel', () => {
       this.showTypePanel = true;
       setTimeout(() => this.positionPanelWithin(this.invoiceFiltersRef?.nativeElement, '.type-btn', '.type-panel'), 20);
     }, '.type-search input');
@@ -629,7 +629,7 @@ export class InvoicesComponent implements OnInit, AfterViewInit, OnDestroy {
       return;
     }
     this.closePeriodPanels('ugyfel');
-    this.scrollFiltersToButton('period', '.ugyfel-btn', () => {
+    this.scrollFiltersToButton('period', '.ugyfel-btn', '.ugyfel-panel', () => {
       this.showPeriodUgyfelPanel = true;
       setTimeout(() => this.positionPanelWithin(this.periodFiltersRef?.nativeElement, '.ugyfel-btn', '.ugyfel-panel'), 20);
     }, '.ugyfeld-search input');
@@ -645,7 +645,7 @@ export class InvoicesComponent implements OnInit, AfterViewInit, OnDestroy {
       return;
     }
     this.closePeriodPanels('date');
-    this.scrollFiltersToButton('period', '.date-btn', () => {
+    this.scrollFiltersToButton('period', '.date-btn', '.date-panel', () => {
       this.showPeriodDatePanel = true;
       setTimeout(() => this.positionPanelWithin(this.periodFiltersRef?.nativeElement, '.date-btn', '.date-panel'), 20);
     });
@@ -661,7 +661,7 @@ export class InvoicesComponent implements OnInit, AfterViewInit, OnDestroy {
       return;
     }
     this.closePeriodPanels('status');
-    this.scrollFiltersToButton('period', '.status-btn', () => {
+    this.scrollFiltersToButton('period', '.status-btn', '.status-panel', () => {
       this.showPeriodStatusPanel = true;
       setTimeout(() => this.positionPanelWithin(this.periodFiltersRef?.nativeElement, '.status-btn', '.status-panel'), 20);
     }, '.status-search input');
@@ -1195,7 +1195,8 @@ export class InvoicesComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private scrollFiltersToButton(
     kind: 'invoice' | 'period',
-    selector: string,
+    buttonSelector: string,
+    panelSelector: string,
     openPanel: () => void,
     focusSelector?: string
   ) {
@@ -1211,7 +1212,7 @@ export class InvoicesComponent implements OnInit, AfterViewInit, OnDestroy {
       return;
     }
 
-    const btn = container.querySelector(selector) as HTMLElement | null;
+    const btn = container.querySelector(buttonSelector) as HTMLElement | null;
     if (!btn) {
       openPanel();
       return;
@@ -1240,7 +1241,7 @@ export class InvoicesComponent implements OnInit, AfterViewInit, OnDestroy {
           el?.focus({ preventScroll: true });
         }, 50);
       }
-      setTimeout(() => this.positionPanelWithin(container, selector, focusSelector?.replace(' input', '') || ''), 10);
+      setTimeout(() => this.positionPanelWithin(container, buttonSelector, panelSelector), 10);
     }, 260);
   }
 
@@ -1252,8 +1253,11 @@ export class InvoicesComponent implements OnInit, AfterViewInit, OnDestroy {
     if (window.innerWidth > 768) return;
 
     const btnRect = btn.getBoundingClientRect();
+    panel.style.position = 'fixed';
     panel.style.top = `${btnRect.bottom + 6}px`;
     panel.style.left = '16px';
+    panel.style.right = '16px';
+    panel.style.width = 'auto';
   }
 
   @HostListener('document:click', ['$event'])

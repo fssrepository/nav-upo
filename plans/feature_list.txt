@@ -25,8 +25,6 @@ balance gombra rakkattintva megjelenik egy sub menu lista vissza gombbal - ugy m
 
 amikor info gombra kattintok, mutassa a teljes ablakos popup-ot infovan emailel, video chat ikonnal, kagylo ikonnal
 
-felhasználó hozzaadasa + gomb - switch user felulet
-
 kapcsolat menu
 settings menu a szamlak alatt - accordion kepviseletek, szamlazo, adozoi adatok, m2m, ertesito szabályok
 
@@ -48,8 +46,26 @@ Foglalkoztatással kapcsolatos bejelentések
 
 Adónaptár (esedekes bevallasok/hianyzo bevallasok)
 
+Adóhatósági megbízólevél és tájékoztatás adatainak lekérdezése - kepviselet
+Meghatalmazás önkormányzat előtti eljárásra (HIPA)
+
+leirni ala ki a kepviselete es milyen jogosultsagokkal
+
+kiket kepvisel ala, hasonloan - ra lehessen kattintani, igy lehet latni az adatait, es lehet torolni
+
+rakkattintva popup, ahol torolni lehet kepviseletet
+
+ha kivalasztjuk a szervezetet, a bal oldali menu frissuljon (ikon) es a szuro feltetelek is es a sugo gomb alatti tartalom is --- ezt csak a kivalaszt gombra elojovo popup-ra leirni
+(egyelore a NAV Upo logot, ne tuntessuk el) - jelezzuk, hogy akar NAV logo is lehetne ott - onya integracioval
+
+settings menu:
+a kepviseletnel leirast tenni, hogy a vallalkozonak milyen formában kell uzenni - ha a kepviselete csinalt vmit
+a dokumentum-ok sugo-jara tenni, hogy ha van kepviselet milyen formaban kuldje ki e-mail-re a dolgot
+
 user selector - balra nyilo menu:
 --------------------------------
+
+felhasználó hozzaadasa + gomb - switch user felulet
 
 busz, vonatjegyek, posta
 Szolgáltatások - kozuzemi szamlak, bkv berletek, autópálya matrica, parkolas
@@ -66,9 +82,6 @@ Beállítások menu - pl. nyelv, kau regisztráció stb.
 Kilepes gomb a user selector menu tetejen jobb oldalt
 
 nyelv beallito/kilepes gomb
-
-Adóhatósági megbízólevél és tájékoztatás adatainak lekérdezése - kepviselet
-Meghatalmazás önkormányzat előtti eljárásra (HIPA)
 
 angol / magyar valaszto - a user selector settings gombnal
 
@@ -90,22 +103,7 @@ olyan auto completer, ahol a menu-t a felhasznalo accountjait lehet szurni, de h
 
 a szervezet auto completer alatta, ami a felhasználó kivalaszto alapjan szurodik, benne van az osszes szervezet, de ketszeres sorba rendezes vastag vonallalelvalasztva - bemutatva ki uzent abc sorrendben a tetejere kerul
 
-leirni ala ki a kepviselete es milyen jogosultsagokkal
-
-kiket kepvisel ala, hasonloan - ra lehessen kattintani, igy lehet latni az adatait, es lehet torolni
-
-rakkattintva popup, ahol torolni lehet kepviseletet
-
-ha kivalasztjuk a szervezetet, a bal oldali menu frissuljon (ikon) es a szuro feltetelek is es a sugo gomb alatti tartalom is --- ezt csak a kivalaszt gombra elojovo popup-ra leirni
-(egyelore a NAV Upo logot, ne tuntessuk el) - jelezzuk, hogy akar NAV logo is lehetne ott - onya integracioval
-
 Szervezet message a user selectoron - pl. NAV, Ombudsman hozzaadni
-
-
-settings menu
--------------
-a kepviseletnel leirast tenni, hogy a vallalkozonak milyen formában kell uzenni - ha a kepviselete csinalt vmit
-a dokumentum-ok sugo-jara tenni, hogy ha van kepviselet milyen formaban kuldje ki e-mail-re a dolgot
 
 hibak
 -----

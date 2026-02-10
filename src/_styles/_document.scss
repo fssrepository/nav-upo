@@ -357,11 +357,14 @@ tr[mat-row], tr.mat-mdc-row, tr.mdc-data-table__row { cursor: pointer; }
   gap: 6px;
 }
 
-.mobile-form::before {
-  content: '-';
-  margin-right: 6px;
-  margin-left: 6px;
+.documents .mobile-form {
+  font-weight: 700;
+}
+
+.documents .mobile-form::after {
+  content: ' - ';
   color: rgba(0,0,0,0.35);
+  margin: 0 6px;
 }
 
 @media (max-width: 768px) {
