@@ -51,6 +51,10 @@ Adónaptár (esedekes bevallasok/hianyzo bevallasok)
 user selector - balra nyilo menu:
 --------------------------------
 
+busz, vonatjegyek, posta
+Szolgáltatások - kozuzemi szamlak, bkv berletek, autópálya matrica, parkolas
+szervezet - ado, egeszegugy, jog, közbiztonság
+
 szervezet kivalaszto - mutassa meg hogy frissul a menu es a kezdolap
 
 Segitseg 8181 - menu

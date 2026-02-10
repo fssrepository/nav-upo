@@ -1001,11 +1001,6 @@ td.mat-column-icon {
   margin: 0;
 }
 
-.invoices .mobile-meta {
-  display: inline-flex;
-  flex-wrap: wrap;
-}
-
 .invoices .mobile-bizonylat {
   display: block;
   width: 100%;
@@ -1037,6 +1032,13 @@ td.mat-column-icon {
 
 .invoices .mobile-status {
   order: 2;
+}
+
+@media (max-width: 768px) {
+  .invoices .mobile-meta {
+    display: inline-flex;
+    flex-wrap: wrap;
+  }
 }
 
 .invoice-create-layout {
