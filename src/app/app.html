@@ -161,17 +161,15 @@
           </div>
         </section>
 
-        <section class="user-menu-card menu-action" (click)="openUserPopup('centralHelp')">
-          <div class="card-header card-header-center">
-            <span class="card-title">Központi segítség</span>
-          </div>
-        </section>
+        <button class="user-menu-link" type="button" (click)="openUserPopup('centralHelp')">
+          <mat-icon>support_agent</mat-icon>
+          <span>Központi segítség</span>
+        </button>
 
-        <section class="user-menu-card menu-action" (click)="openUserPopup('userSettings')">
-          <div class="card-header card-header-center">
-            <span class="card-title">Beállítások</span>
-          </div>
-        </section>
+        <button class="user-menu-link" type="button" (click)="openUserPopup('userSettings')">
+          <mat-icon>settings</mat-icon>
+          <span>Beállítások</span>
+        </button>
       </div>
     </aside>
 
@@ -238,23 +236,12 @@
           <p>{{ selectedAppointment.datetime }}</p>
         </div>
         <div class="appointment-links">
-          <button type="button" class="link-btn" (click)="openMapLink(selectedAppointment.mapUrl, false)">Térkép mobil</button>
-          <button type="button" class="link-btn" (click)="openMapLink(selectedAppointment.mapUrl, true)">Térkép asztali</button>
+          <button type="button" class="link-btn" (click)="openMapLinkSmart(selectedAppointment.mapUrl)">Térkép</button>
           <button type="button" class="link-btn">Video chat</button>
         </div>
         <div class="appointment-categories">
-          <p>Kategóriák</p>
-          <div class="category-list">
-            <button
-              type="button"
-              class="category-pill"
-              *ngFor="let category of appointmentCategories"
-              [class.active]="category === selectedAppointmentCategory"
-              (click)="setAppointmentCategory(category)"
-            >
-              {{ category }}
-            </button>
-          </div>
+          <p>Kategória</p>
+          <div class="category-chip">{{ selectedAppointmentCategory }}</div>
         </div>
         <div class="appointment-actions">
           <p>{{ selectedAppointmentCategory }} - részletek megjelenítése</p>

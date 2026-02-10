@@ -436,6 +436,7 @@ export class App {
 
   selectAppointment(appointmentId: string) {
     this.selectedAppointmentId = appointmentId;
+    this.selectedAppointmentCategory = this.getCategoryForAppointment();
   }
 
   get userAppointments() {
@@ -445,6 +446,20 @@ export class App {
   get selectedAppointment() {
     const appointments = this.userAppointments;
     return appointments.find(item => item.id === this.selectedAppointmentId) ?? appointments[0];
+  }
+
+  private getCategoryForAppointment() {
+    const place = this.selectedAppointment.place.toLowerCase();
+    if (place.includes('nav')) {
+      return 'Adóügy';
+    }
+    if (place.includes('kormányablak')) {
+      return 'Kormányablak';
+    }
+    if (place.includes('önkormányzat')) {
+      return 'Önkormányzat';
+    }
+    return this.appointmentCategories[0];
   }
 
   setAppointmentCategory(category: string) {
@@ -465,6 +480,11 @@ export class App {
       return;
     }
     window.location.href = url;
+  }
+
+  openMapLinkSmart(url: string) {
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+    this.openMapLink(url, !isMobile);
   }
 
   @HostListener('document:click', ['$event'])
