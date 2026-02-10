@@ -93,8 +93,9 @@ export class App {
       items: [
         { text: 'Lista az aktuális képviseletekről és azok jogosultságairól (törlés gomb a végén)', level: 0 },
         { text: 'Képviselt hozzáadása gomb a könyvelő oldalán', level: 0 },
-        { text: 'Képviselet meghatalmazas kerő urlap betöltése (jogosultsag + onkormanyzat - hipa checkbox)', level: 1 },
-        { text: 'Könyvelő beküldi a kérést (kitölti az ürlapot), amit a vállalkozó a saját tárhelyén elfogad', level: 1 },
+        { text: 'Képviselet meghatalmazás kérő űrlap betöltése - integrált Onya (jogosultság + önkormányzat - hipa checkbox)', level: 1 },
+        { text: 'Könyvelő beküldi a képviseleti meghatalmazás igénylést (kitölti az ürlapot), amit a vállalkozó a saját tárhelyén elfogad', level: 1 },
+        { text: 'Könyvelő beküldi a hipa adónem választó ürlapot is a NAV-nak (nem Önkormányzat felületén)', level: 1 },
         { text: 'Ezzel ki lehet küszöbölni, hogy a vállalkozó kényszerből megossza az ügyfélkapus jelszavát a könyvelővel!', level: 1 }
       ]
     },
