@@ -1,0 +1,27 @@
+Adozoi adatok (accordion)
+- Adóhatósági igazolások
+Foglalkoztatasi adatok (accordion)
+- Foglalkoztatói bejelentések, lekérdezések
+- Keresetkimutatás, Járulékadatok
+Képviseletek (accordion)
+1) lista az aktuális képviseletekről és azok jogosultságairól (törlés gomb a végén)
+2) képviselt hozzáadása gomb a könyvelő oldalán:
+a) Képviselet meghatalmazas kerő urlap betöltése (jogosultsag + onkormanyzat - hipa checkbox) 
+b) Könyvelő beküldi a kérést (kitölti az ürlapot), amit a vállalkozó a saját tárhelyén elfogad
+Ezzel ki lehet küszöbölni, hogy a vállalkozó kényszerből megossza az ügyfélkapus jelszavát a könyvelővel!
+Szamlak (accordion)
+Számla kliens regisztráció (m2m/billingo) - mikor kuldjon emailt
+Értesítő szabályok (accordion)
+A GDPR alapján a vállalkozónak is kell értesítőt küldeni a képviseleti műveletekről. (adatai változtak)
+A vállalkozó beállíthatja:
+1) Mely képviseleti műveletekről szeretne értesítést a vállalkozó
+2) Mely képviseleti műveleteket szeretné el is fogadni, mielőtt aktiválódik (30 nap múlva automatikusan elfogadasra kerül)
+
+A tárhelyre érkező üzenet formája, amikor A könyvelő benyújtja az adóbevallást és a NAV feldolgozza azt:
+1) a könyvelőnek visszaküld egy technikai vagy hibaüzenetet a szokásos módon
+2) a vállalkozónak rövid, közérthető tájékoztatást küld:
+a) „A 2021-es KATA adóbevallásban hibát észleltünk, itt tekintheti meg.”
+b) „Az Ön nevében új adóbevallás került benyújtásra. Kérjük, tekintse át az
+Ügyfélportál [megadott menüpontjában]. Ha mindent rendben talál, fogadja
+el; ha nem reagál 30 napon belül, a bevallást automatikusan elfogadottnak
+tekintjük.” + „Az adóbevallás sikeresen benyújtásra került.”

@@ -27,8 +27,12 @@
     <!-- Mobile Menu Panel -->
     <div class="mobile-menu-backdrop" [class.open]="showMobileMenu" (click)="closeMobileMenu()" *ngIf="showMobileMenu"></div>
     <div class="mobile-menu-panel-global" [class.open]="showMobileMenu">
-      <div class="menu-header">
+      <div class="menu-header menu-header-row">
         <img src="assets/img/nav-logo.svg" alt="NAV" />
+        <button class="balance-card" type="button" (click)="openPopup('balance')" aria-label="Egyenleg megnyitása">
+          <span class="balance-title">Egyenleg</span>
+          <span class="balance-value">-200e Ft</span>
+        </button>
       </div>
       <div class="menu-items">
         <a class="menu-item" routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="closeMobileMenu()">
@@ -46,27 +50,24 @@
           <span>Bizonylatok</span>
           <span class="item-badge" *ngIf="menuBadges.invoices > 0">{{ menuBadges.invoices }}</span>
         </a>
-        <a class="menu-item" routerLink="/offices" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="closeMobileMenu()">
-          <mat-icon>business</mat-icon>
-          <span>Képviseletek</span>
-          <span class="item-badge" *ngIf="menuBadges.offices > 0">{{ menuBadges.offices }}</span>
-        </a>
-        <a class="menu-item" routerLink="/appointments" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="closeMobileMenu()">
-          <mat-icon>event</mat-icon>
-          <span>Időpontfoglalás</span>
-          <span class="item-badge" *ngIf="menuBadges.appointments > 0">{{ menuBadges.appointments }}</span>
-        </a>
-        <a class="menu-item" routerLink="/information" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="closeMobileMenu()">
-          <mat-icon>info</mat-icon>
-          <span>Információk</span>
-          <span class="item-badge" *ngIf="menuBadges.information > 0">{{ menuBadges.information }}</span>
-        </a>
+        <button class="menu-item menu-item-action" type="button" (click)="openPopup('contact')">
+          <mat-icon>support_agent</mat-icon>
+          <span>Kapcsolat</span>
+        </button>
+        <button class="menu-item menu-item-action" type="button" (click)="openPopup('settings')">
+          <mat-icon>settings</mat-icon>
+          <span>Beállítások</span>
+        </button>
       </div>
     </div>
 
     <nav class="sidebar" aria-label="Primary navigation">
-      <div class="sidebar-top" aria-hidden="true">
-        <img src="assets/img/nav-logo.svg" alt="" />
+      <div class="sidebar-top">
+        <img src="assets/img/nav-logo.svg" alt="NAV" />
+        <button class="balance-card" type="button" (click)="openPopup('balance')" aria-label="Egyenleg megnyitása">
+          <span class="balance-title">Egyenleg</span>
+          <span class="balance-value">-200e Ft</span>
+        </button>
       </div>
       <mat-nav-list>
         <a mat-list-item routerLink="/home" routerLinkActive="selected" [routerLinkActiveOptions]="{ exact: true }">
@@ -84,21 +85,14 @@
           <span>Bizonylatok</span>
           <span class="menu-badge" *ngIf="menuBadges.invoices > 0">{{ menuBadges.invoices }}</span>
         </a>
-        <a mat-list-item routerLink="/offices" routerLinkActive="selected" [routerLinkActiveOptions]="{ exact: true }">
-          <mat-icon aria-hidden="false" aria-label="Képviseletek">business</mat-icon>
-          <span>Képviseletek</span>
-          <span class="menu-badge" *ngIf="menuBadges.offices > 0">{{ menuBadges.offices }}</span>
-        </a>
-        <a mat-list-item routerLink="/appointments" routerLinkActive="selected" [routerLinkActiveOptions]="{ exact: true }">
-          <mat-icon aria-hidden="false" aria-label="Időpontfoglalás">event</mat-icon>
-          <span>Időpontfoglalás</span>
-          <span class="menu-badge" *ngIf="menuBadges.appointments > 0">{{ menuBadges.appointments }}</span>
-        </a>
-        <a mat-list-item routerLink="/information" routerLinkActive="selected" [routerLinkActiveOptions]="{ exact: true }">
-          <mat-icon aria-hidden="false" aria-label="Információk">info</mat-icon>
-          <span>Információk</span>
-          <span class="menu-badge" *ngIf="menuBadges.information > 0">{{ menuBadges.information }}</span>
-        </a>
+        <button mat-list-item type="button" class="menu-item-action" (click)="openPopup('contact')">
+          <mat-icon aria-hidden="false" aria-label="Kapcsolat">support_agent</mat-icon>
+          <span>Kapcsolat</span>
+        </button>
+        <button mat-list-item type="button" class="menu-item-action" (click)="openPopup('settings')">
+          <mat-icon aria-hidden="false" aria-label="Beállítások">settings</mat-icon>
+          <span>Beállítások</span>
+        </button>
       </mat-nav-list>
     </nav>
     <section class="content-area">
@@ -106,6 +100,64 @@
     </section>
   </div>
 </main>
+
+<section class="app-popup" *ngIf="activePopup">
+  <div class="app-popup-backdrop" (click)="closePopup()"></div>
+  <div class="app-popup-panel" (click)="$event.stopPropagation()">
+    <div class="popup-header">
+      <div class="popup-title">
+        <h2>{{ getPopupTitle() }}</h2>
+      </div>
+      <span class="popup-balance-value" *ngIf="activePopup === 'balance'">{{ balanceValue }}</span>
+      <button mat-icon-button class="popup-close" (click)="closePopup()" aria-label="Bezárás">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div class="popup-body">
+      <div *ngIf="activePopup === 'contact'" class="contact-content">
+        {{ contactContent }}
+      </div>
+      <div *ngIf="activePopup === 'settings'">
+        <mat-accordion class="popup-accordion" multi>
+          <mat-expansion-panel *ngFor="let panel of settingsPanels">
+            <mat-expansion-panel-header>
+              <mat-panel-title>{{ panel.title }}</mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="accordion-content" *ngIf="panel.items?.length">
+              <ul class="popup-list" *ngIf="panel.title === 'Képviseletek' || panel.title === 'Értesítő szabályok'; else popupParagraphs">
+                <li *ngFor="let item of panel.items" class="popup-list-item" [class]="'popup-list-item level-' + getItemLevel(item)">
+                  {{ getItemText(item) }}
+                </li>
+              </ul>
+              <ng-template #popupParagraphs>
+                <p *ngFor="let item of panel.items">{{ getItemText(item) }}</p>
+              </ng-template>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+      <div *ngIf="activePopup === 'balance'">
+        <mat-accordion class="popup-accordion" multi>
+          <mat-expansion-panel *ngFor="let panel of balancePanels">
+            <mat-expansion-panel-header>
+              <mat-panel-title>{{ panel.title }}</mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="accordion-content" *ngIf="panel.items?.length">
+              <p *ngFor="let item of panel.items">{{ getItemText(item) }}</p>
+            </div>
+            <mat-accordion class="sub-accordion" *ngIf="panel.subpanels?.length" multi>
+              <mat-expansion-panel *ngFor="let subpanel of panel.subpanels">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>{{ subpanel.title }}</mat-panel-title>
+                </mat-expansion-panel-header>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 <!-- * * * * * * * * * * * The content above * * * * * * * * * * * * -->

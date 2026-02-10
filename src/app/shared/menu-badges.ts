@@ -1,10 +1,7 @@
 export const MENU_BADGES = {
   home: 0,
   documents: 3,
-  invoices: 2,
-  offices: 1,
-  appointments: 2,
-  information: 0
+  invoices: 2
 } as const;
 
 export const MENU_BADGES_TOTAL = Object.values(MENU_BADGES).reduce<number>(

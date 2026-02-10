@@ -1,0 +1,12 @@
+Befizetés (accordion)
+Adónaptár (accordion)
+Esedekes bevallasok, hianyzo bevallasok
+Köztartozások (accordion)
+- Fizetési tájékoztatók (sub accordion)
+- Pótléklevezetés (sub accordion)
+- Adóteljesítmény (sub accordion)
+- Köztartozásmentes adózói adatbázis (KOMA) (sub accordion)
+- Egyéb végrehajtható köztartozások (sub accordion)
+Adóraktár (accordion)
+Adóraktári készlet + mozgás (sub accordion)
+Jövedéki biztosíték szabad keret (sub accordion)

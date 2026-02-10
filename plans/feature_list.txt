@@ -1,69 +1,19 @@
 upo menu
 --------
+1) pls. remove "Képviseletek", "Időpontfoglalás", "Információk" menu
+2) pls. add "Kapcsolat" menu below the "Beállítások", similar popup, title is Kapcsolat with content "Chat, video, telefon link"
+3) pls. add "Beállítások" menu below "Kapcsolatok" menu on the same level, but bottom of the menu bar - clicking on that a popup should show (similar style to uj email popup for desktop and mobile)
+2) pls. add Egyenleg button next to the NAV icon on the menu right hand side (the style is like a frame Egyenleg title at the top and below -200e Ft with red in the same frame)
+clicking on that popup similar to the uj email should be shown with the content of egyenleg.txt (angular accordion structure inside)
 
-Adozoi es foglalkoztatasi adatok - a bal oldali menuben - a jobb oldali általánosabb, nem csak adóhatóság
-
-settings menu szamlak
-
-szamla felhasznalo - upo menu - felhasznalo popup + tab
-
-szamlazo menu (NAV sajat szamlazo programjanak integracioja) - az online szamla beallitas a upo menuben van - rakkattint popup, es ott tab-os kialakitas - felhasznaloi adatok/ online szamla
-
-onya kitolto/online szamla beallitasai, settings menu-ben (upo menuben)
-
-M2M regisztráció
-
-Adónaptár (esedekes bevallasok/hianyzo bevallasok)
-
-szja 1% felajanlas
-
-lehet az uzenetek menu nem kell
-
-lehet jobb lenne desktopon is a 3 vizszintes vonalu menu gomb, es maga a statikus menu eltavolitasa
-
-balance gombra rakkattintva megjelenik egy sub menu lista vissza gombbal - ugy mint a youtube-ban (adoellenorzes folyamatban)
-
-amikor info gombra kattintok, mutassa a teljes ablakos popup-ot infovan emailel, video chat ikonnal, kagylo ikonnal
-
-kapcsolat menu
-settings menu a szamlak alatt - accordion kepviseletek, szamlazo, adozoi adatok, m2m, ertesito szabályok
-
-balance gomb - popup
---------------------
-Egyéb végrehajtható köztartozások lekérdezése
-Jövedéki biztosíték szabad keret
-Adóraktári készlet
-Adóraktári készletmozgás
-Járulékadatok lekérdezése
-Pótléklevezetés
-Adóhatósági igazolások lekérdezése
-Keresetkimutatás lekérdezése
-Adóteljesítmény lekérdezése
-Fizetési tájékoztatók
-Köztartozásmentes adózói adatbázis (KOMA)
-
-Foglalkoztatással kapcsolatos bejelentések
-
-Adónaptár (esedekes bevallasok/hianyzo bevallasok)
-
-Adóhatósági megbízólevél és tájékoztatás adatainak lekérdezése - kepviselet
-Meghatalmazás önkormányzat előtti eljárásra (HIPA)
-
-leirni ala ki a kepviselete es milyen jogosultsagokkal
-
-kiket kepvisel ala, hasonloan - ra lehessen kattintani, igy lehet latni az adatait, es lehet torolni
-
-rakkattintva popup, ahol torolni lehet kepviseletet
-
-ha kivalasztjuk a szervezetet, a bal oldali menu frissuljon (ikon) es a szuro feltetelek is es a sugo gomb alatti tartalom is --- ezt csak a kivalaszt gombra elojovo popup-ra leirni
-(egyelore a NAV Upo logot, ne tuntessuk el) - jelezzuk, hogy akar NAV logo is lehetne ott - onya integracioval
-
-settings menu:
-a kepviseletnel leirast tenni, hogy a vallalkozonak milyen formában kell uzenni - ha a kepviselete csinalt vmit
-a dokumentum-ok sugo-jara tenni, hogy ha van kepviselet milyen formaban kuldje ki e-mail-re a dolgot
 
 user selector - balra nyilo menu:
 --------------------------------
+
+Egészségügyi Krízishelyzet Moratórium - suspend on user selector
+
+ha kivalasztjuk a szervezetet, a bal oldali menu frissuljon (ikon) es a szuro feltetelek is es a sugo gomb alatti tartalom is --- ezt csak a kivalaszt gombra elojovo popup-ra leirni
+(egyelore a NAV Upo logot, ne tuntessuk el) - jelezzuk, hogy akar NAV logo is lehetne ott - onya integracioval
 
 felhasználó hozzaadasa + gomb - switch user felulet
 
